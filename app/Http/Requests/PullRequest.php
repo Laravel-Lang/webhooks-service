@@ -19,7 +19,7 @@ class PullRequest extends FormRequest
 
             'release' => ['required', 'array'],
 
-            'release.name' => ['required', 'string', 'doesnt_start_with:.'],
+            'release.name' => ['required', 'string'],
             'release.body' => ['required', 'string'],
 
             'release.draft'      => ['required', 'bool', 'declined'],
@@ -28,7 +28,7 @@ class PullRequest extends FormRequest
             'release.html_url' => ['required', 'url'],
 
             'repository.owner.login' => ['required', 'string'],
-            'repository.name'        => ['required', 'string'],
+            'repository.name'        => ['required', 'string', Rule::notIn(config('services.telegram.excludes'))],
 
             'repository.visibility' => ['required', 'string', Rule::enum(VisibilityEnum::class)],
 
