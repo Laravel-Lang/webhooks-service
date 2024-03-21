@@ -7,7 +7,9 @@ return [
 
         'excludes' => [
             '.github',
+            'docs',
             'release-publisher',
+            'status-generator',
         ],
     ],
 
