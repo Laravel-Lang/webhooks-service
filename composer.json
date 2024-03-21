@@ -33,7 +33,10 @@
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "dragon-code/codestyler": true,
+            "ergebnis/composer-normalize": true,
+            "symfony/thanks": true
         },
         "optimize-autoloader": true,
         "preferred-install": "dist",
