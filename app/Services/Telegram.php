@@ -10,16 +10,30 @@ use Illuminate\Database\Eloquent\Collection;
 
 class Telegram
 {
+    protected int $maxErrors = 10;
+
     public function publish(ReleaseData $data): void
     {
         $this->chats()->each(
-            fn (TelegraphChat $chat) => $this->send($chat, $data)
+            fn (TelegraphChat $chat) => rescue(
+                fn () => $this->send($chat, $data),
+                fn () => $this->failed($chat)
+            )
         );
     }
 
     protected function send(TelegraphChat $chat, ReleaseData $data): void
     {
-        rescue(fn () => $chat->html($this->message($data))->send());
+        $chat->html($this->message($data))->send();
+
+        $this->resetErrors($chat);
+    }
+
+    protected function failed(TelegraphChat $chat): void
+    {
+        $chat->errors <= $this->maxErrors
+            ? $chat->increment('errors')
+            : $chat->delete();
     }
 
     protected function message(ReleaseData $release): string
@@ -30,5 +44,10 @@ class Telegram
     protected function chats(): Collection
     {
         return TelegraphChat::get();
+    }
+
+    protected function resetErrors(TelegraphChat $chat): void
+    {
+        $chat->updateQuietly(['errors' => 0]);
     }
 }
