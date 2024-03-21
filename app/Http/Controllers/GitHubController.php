@@ -9,7 +9,7 @@ use App\Services\Telegram;
 
 class GitHubController extends Controller
 {
-    public function __invoke(PullRequest $request, Telegram $telegram)
+    public function release(PullRequest $request, Telegram $telegram)
     {
         $telegram->publish($request->dto());
 
