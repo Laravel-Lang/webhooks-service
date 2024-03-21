@@ -32,10 +32,10 @@ class PullRequest extends FormRequest
 
             'repository.visibility' => ['required', 'string', Rule::enum(VisibilityEnum::class)],
 
-            'repository.private'     => ['required', 'boo', 'declined'],
-            'repository.archived'    => ['required', 'boo', 'declined'],
-            'repository.disabled'    => ['required', 'boo', 'declined'],
-            'repository.is_template' => ['required', 'boo', 'declined'],
+            'repository.private'     => ['required', 'bool', 'declined'],
+            'repository.archived'    => ['required', 'bool', 'declined'],
+            'repository.disabled'    => ['required', 'bool', 'declined'],
+            'repository.is_template' => ['required', 'bool', 'declined'],
         ];
     }
 
