@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Middleware\Handler;
+use App\Exceptions\Handler as ExceptionHandler;
+use App\Http\Middleware\Handler as MiddlewareHandler;
 use Illuminate\Foundation\Application;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -8,6 +9,6 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__ . '/../routes/api.php',
         commands: __DIR__ . '/console.php',
     )
-    ->withMiddleware(new Handler())
-    ->withExceptions()
+    ->withMiddleware(new MiddlewareHandler())
+    ->withExceptions(new ExceptionHandler())
     ->create();

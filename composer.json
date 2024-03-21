@@ -16,6 +16,7 @@
         "dragon-code/laravel-json-response": "^3.0",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "sentry/sentry-laravel": "^4.3",
         "spatie/laravel-data": "^4.4"
     },
     "require-dev": {
