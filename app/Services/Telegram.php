@@ -12,21 +12,20 @@ class Telegram
     public function __construct(
         protected string $token,
         protected array $chatIds
-    ) {
-    }
+    ) {}
 
     public function publish(ReleaseData $data): void
     {
         foreach ($this->chatIds as $chatId) {
-            $this->send((int)$chatId, $this->message($data));
+            $this->send((int) $chatId, $this->message($data));
         }
     }
 
     protected function send(int $chatId, string $content): void
     {
         Http::acceptJson()->post($this->url('sendMessage'), [
-            'chat_id' => $chatId,
-            'text' => $content,
+            'chat_id'    => $chatId,
+            'text'       => $content,
             'parse_mode' => 'HTML',
         ]);
     }
