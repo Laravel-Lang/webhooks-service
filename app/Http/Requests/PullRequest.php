@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use App\Data\ReleaseData;
 use App\Enums\ActionEnum;
+use App\Enums\VisibilityEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -18,7 +19,7 @@ class PullRequest extends FormRequest
 
             'release' => ['required', 'array'],
 
-            'release.name' => ['required', 'string'],
+            'release.name' => ['required', 'string', 'doesnt_start_with:.'],
             'release.body' => ['required', 'string'],
 
             'release.draft' => ['required', 'bool', 'declined'],
@@ -28,6 +29,13 @@ class PullRequest extends FormRequest
 
             'repository.owner.login' => ['required', 'string'],
             'repository.name' => ['required', 'string'],
+
+            'repository.visibility' => ['required', 'string', Rule::enum(VisibilityEnum::class)],
+
+            'repository.private' => ['required', 'boo', 'declined'],
+            'repository.archived' => ['required', 'boo', 'declined'],
+            'repository.disabled' => ['required', 'boo', 'declined'],
+            'repository.is_template' => ['required', 'boo', 'declined'],
         ];
     }
 
