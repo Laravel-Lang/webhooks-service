@@ -38,9 +38,21 @@ task('deploy', [
     'artisan:optimize:clear',
     'artisan:optimize',
     'artisan:migrate',
+    'artisan:actions:before',
     'deploy:publish',
     'php-fpm:reload',
+    'artisan:actions',
 ]);
+
+task('artisan:actions', function () {
+    cd('{{release_path}}');
+    run('{{bin/php}} artisan actions');
+});
+
+task('artisan:actions:before', function () {
+    cd('{{release_path}}');
+    run('{{bin/php}} artisan actions --before');
+});
 
 before('deploy', 'telegram:notify');
 

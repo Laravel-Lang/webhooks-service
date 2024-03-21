@@ -5,29 +5,21 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Data\ReleaseData;
-use Illuminate\Support\Facades\Http;
+use DefStudio\Telegraph\Models\TelegraphChat;
+use Illuminate\Database\Eloquent\Collection;
 
 class Telegram
 {
-    public function __construct(
-        protected string $token,
-        protected array $chatIds
-    ) {}
-
     public function publish(ReleaseData $data): void
     {
-        foreach ($this->chatIds as $chatId) {
-            $this->send((int) $chatId, $this->message($data));
-        }
+        $this->chats()->each(
+            fn (TelegraphChat $chat) => $this->send($chat, $data)
+        );
     }
 
-    protected function send(int $chatId, string $content): void
+    protected function send(TelegraphChat $chat, ReleaseData $data): void
     {
-        Http::acceptJson()->post($this->url('sendMessage'), [
-            'chat_id'    => $chatId,
-            'text'       => $content,
-            'parse_mode' => 'HTML',
-        ]);
+        rescue(fn () => $chat->html($this->message($data))->send());
     }
 
     protected function message(ReleaseData $release): string
@@ -35,8 +27,8 @@ class Telegram
         return view('message', compact('release'))->toHtml();
     }
 
-    protected function url(string $method): string
+    protected function chats(): Collection
     {
-        return sprintf('https://api.telegram.org/bot%s/%s', $this->token, $method);
+        return TelegraphChat::get();
     }
 }

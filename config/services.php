@@ -3,8 +3,7 @@
 return [
     'telegram' => [
         'token' => env('TELEGRAM_BOT_TOKEN'),
-
-        'chats' => explode(',', env('TELEGRAM_CHATS', '')),
+        'name' => env('TELEGRAM_BOT_NAME'),
     ],
 
     'github' => [
