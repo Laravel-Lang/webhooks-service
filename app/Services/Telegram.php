@@ -24,7 +24,7 @@ class Telegram
 
     protected function send(TelegraphChat $chat, ReleaseData $data): void
     {
-        $chat->html($this->message($data))->send();
+        retry(5, fn () => $chat->html($this->message($data))->send());
 
         $this->resetErrors($chat);
     }
