@@ -17,9 +17,11 @@ set('php_fpm_version', '8.2');
 set('telegram_token', $_SERVER['TELEGRAM_DRAGON_BOT_TOKEN']);
 set('telegram_chat_id', $_SERVER['TELEGRAM_DRAGON_BOT_CHAT_ID']);
 
-set('telegram_text', 'Deploying `{{branch}}` to *{{target}}*' . PHP_EOL . PHP_EOL . '*Application*: {{application}}');
-set('telegram_success_text', 'Deployed some fresh code to *{{target}}*' . PHP_EOL . PHP_EOL . '*Application*: {{application}}');
-set('telegram_failure_text', 'Something went wrong during deployment to *{{target}}*' . PHP_EOL . PHP_EOL . '*Application*: {{application}}');
+$title = '*{{application}}*' . PHP_EOL . PHP_EOL;
+
+set('telegram_text', $title . 'Deploying `{{branch}}` to *{{target}}*');
+set('telegram_success_text', $title . 'Deployed some fresh code to *{{target}}*');
+set('telegram_failure_text', $title . 'Something went wrong during deployment to *{{target}}*');
 
 // Hosts
 

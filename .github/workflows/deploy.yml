@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - release
+
+  workflow_dispatch:
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
+
+            -   name: Deploy
+                uses: deployphp/action@v1
+                env:
+                    TELEGRAM_DRAGON_BOT_TOKEN: ${{ secrets.TELEGRAM_DRAGON_BOT_TOKEN }}
+                    TELEGRAM_DRAGON_BOT_CHAT_ID: ${{ secrets.TELEGRAM_DRAGON_BOT_CHAT_ID }}
+                    DEPLOY_IP: ${{ secrets.DEPLOY_IP }}
+                    DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+                with:
+                    private-key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+                    known-hosts: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+                    dep: deploy production --revision=${{ github.sha }}
+                    deployer-version: 7.3.0
