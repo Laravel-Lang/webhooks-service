@@ -6,5 +6,4 @@ use App\Http\Controllers\GitHubController;
 
 app('router')
     ->name('release')
-    ->controller(GitHubController::class)
-    ->post('release', 'release');
+    ->post('release', [GitHubController::class, 'release']);
