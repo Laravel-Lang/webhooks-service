@@ -3,7 +3,7 @@
 return [
     'telegram' => [
         'token' => env('TELEGRAM_BOT_TOKEN'),
-        'name' => env('TELEGRAM_BOT_NAME'),
+        'name'  => env('TELEGRAM_BOT_NAME'),
 
         'excludes' => [
             '.github',

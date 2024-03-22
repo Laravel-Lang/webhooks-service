@@ -16,7 +16,7 @@ class ChangelogCast implements Cast
     protected string $listItem = '- <code>[$1]</code>';
 
     protected array $options = [
-        'html_input' => 'strip',
+        'html_input'         => 'strip',
         'allow_unsafe_links' => false,
     ];
 
