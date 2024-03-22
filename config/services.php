@@ -3,13 +3,17 @@
 return [
     'telegram' => [
         'token' => env('TELEGRAM_BOT_TOKEN'),
-        'name'  => env('TELEGRAM_BOT_NAME'),
+        'name' => env('TELEGRAM_BOT_NAME'),
 
         'excludes' => [
             '.github',
             'docs',
             'release-publisher',
             'status-generator',
+        ],
+
+        'changelog' => [
+            'limit' => 384,
         ],
     ],
 

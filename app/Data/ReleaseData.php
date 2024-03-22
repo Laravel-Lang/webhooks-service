@@ -2,6 +2,7 @@
 
 namespace App\Data;
 
+use App\Data\Casts\ChangelogCast;
 use App\Data\Casts\RepositoryNameCast;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\WithCast;
@@ -23,5 +24,6 @@ class ReleaseData extends Data
     public string $url;
 
     #[MapInputName('release.body')]
+    #[WithCast(ChangelogCast::class)]
     public string $changelog;
 }
