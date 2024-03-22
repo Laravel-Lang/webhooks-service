@@ -24,7 +24,7 @@ class ChangelogCast implements Cast
 
     protected array $tagsTo = ['b', '', '', '- ', ''];
 
-    public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
+    public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): string
     {
         return Str::of($value)
             ->limit($this->limit())
