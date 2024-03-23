@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Jobs\Telegram;
 
-use App\Data\ReleaseData;
 use App\Jobs\Job;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Throwable;
@@ -15,7 +14,11 @@ class ReleaseJob extends Job
 
     public function __construct(
         public int $chatId,
-        public ReleaseData $data
+        public string $organization,
+        public string $repository,
+        public string $version,
+        public string $changelog,
+        public string $url
     ) {}
 
     public function handle(): void
@@ -38,7 +41,13 @@ class ReleaseJob extends Job
 
     protected function message(): string
     {
-        return view('message', ['release' => $this->data])->toHtml();
+        return view('message', [
+            'organization' => $this->organization,
+            'repository'   => $this->repository,
+            'version'      => $this->version,
+            'changelog'    => $this->changelog,
+            'url'          => $this->url,
+        ])->toHtml();
     }
 
     protected function resetErrors(): void

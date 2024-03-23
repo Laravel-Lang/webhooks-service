@@ -1,5 +1,5 @@
-<b>{{ $release->organization }} {{ $release->repository }} {{ $release->version }} released</b>
+<b>{{ $organization }} {{ $repository }} {{ $version }} released</b>
 
-{!! $release->changelog !!}
+{!! $changelog !!}
 
-{{ $release->url }}
+{{ $url }}

@@ -22,11 +22,11 @@ class ChangelogCast implements Cast
         'allow_unsafe_links' => false,
     ];
 
-    protected array $tagsFrom = ['h2', '<li>'];
+    protected array $tagsFrom = ['h2', '<li>', '</li>'];
 
-    protected array $tagsTo = ['b', '- '];
+    protected array $tagsTo = ['b', '- ', ''];
 
-    protected string $allowedTags = '<h2><li><i>';
+    protected array $allowedTags = ['h2', 'li', 'i'];
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): string
     {
