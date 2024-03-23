@@ -3,5 +3,5 @@
 use App\Providers\StringServiceProvider;
 
 return [
-    StringServiceProvider::class
+    StringServiceProvider::class,
 ];
