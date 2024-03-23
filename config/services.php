@@ -13,7 +13,7 @@ return [
         ],
 
         'changelog' => [
-            'limit' => 384,
+            'limit' => 20,
         ],
 
         'max_errors' => 10,
