@@ -14,6 +14,11 @@ use App\Services\Telegram;
 
 class GitHubController extends Controller
 {
+    public function connect()
+    {
+        return $this->success();
+    }
+
     public function release(ReleaseRequest $request, Telegram $telegram)
     {
         $telegram->publish($request->dto());

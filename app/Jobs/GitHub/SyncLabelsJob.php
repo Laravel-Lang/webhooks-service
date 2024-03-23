@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace App\Jobs\GitHub;
 
-use App\Data\PullRequestData;
 use App\Jobs\Job;
-use App\Services\PullRequest;
+use App\Services\Repository;
 
 class SyncLabelsJob extends Job
 {
     public function __construct(
-        public PullRequestData $data
+        public string $organization,
+        public string $repository
     ) {}
 
-    public function handle(PullRequest $pullRequest): void
+    public function handle(Repository $repository): void
     {
-        $this->create($pullRequest);
-        $this->remove($pullRequest);
+        $this->create($repository);
+        $this->remove($repository);
     }
 
-    protected function create(PullRequest $pullRequest): void
+    protected function create(Repository $repository): void
     {
         foreach ($this->toCreate() as $name => $values) {
-            $this->updateOrCreate($pullRequest, $name, [
+            $this->updateOrCreate($repository, $name, [
                 'name'        => $name,
                 'color'       => $values[0],
                 'description' => $values[1],
@@ -31,16 +31,16 @@ class SyncLabelsJob extends Job
         }
     }
 
-    protected function remove(PullRequest $pullRequest): void
+    protected function remove(Repository $repository): void
     {
         foreach ($this->toRemove() as $name) {
-            $pullRequest->removeLabel($this->data, $name);
+            $repository->removeLabel($this->organization, $this->repository, $name);
         }
     }
 
-    protected function updateOrCreate(PullRequest $pullRequest, string $name, array $params): void
+    protected function updateOrCreate(Repository $repository, string $name, array $params): void
     {
-        $pullRequest->createLabel($this->data, $name, $params);
+        $repository->createLabel($this->organization, $this->repository, $name, $params);
     }
 
     protected function toCreate(): array

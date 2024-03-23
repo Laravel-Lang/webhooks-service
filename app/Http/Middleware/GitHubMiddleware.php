@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Data\PullRequestData;
-use App\Jobs\GitHub\SyncLabelsJob;
+use App\Jobs\ConnectOrganizationJob;
+use App\Jobs\ConnectRepositoryJob;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class GitHubMiddleware
@@ -22,7 +23,7 @@ class GitHubMiddleware
         $this->throw(fn () => $this->hashed($request));
 
         if ($this->hasCreatedHook($request)) {
-            $this->connect($request->all());
+            $this->connect($request);
 
             return response()->json('pong');
         }
@@ -60,8 +61,19 @@ class GitHubMiddleware
         return config('services.github.token');
     }
 
-    protected function connect(array $data): void
+    protected function connect(Request $request): void
     {
-        SyncLabelsJob::dispatch(PullRequestData::from($data));
+        if ($request->has('organization.login')) {
+            ConnectOrganizationJob::dispatch(
+                Arr::get($request->get('organization', []), 'login')
+            );
+
+            return;
+        }
+
+        $organization = Arr::get($request->get('repository'), 'owner.login');
+        $repository   = Arr::get($request->get('repository'), 'name');
+
+        ConnectRepositoryJob::dispatch($organization, $repository);
     }
 }

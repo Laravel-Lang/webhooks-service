@@ -8,6 +8,7 @@ app('router')
     ->name('github.')
     ->controller(GitHubController::class)
     ->group(static function () {
+        app('router')->post('connect', 'connect')->name('connect');
         app('router')->post('release', 'release')->name('release');
         app('router')->post('dependabot', 'dependabot')->name('dependabot');
         app('router')->post('translation', 'translation')->name('translation');
