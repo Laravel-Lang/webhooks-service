@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs;
+namespace App\Jobs\GitHub;
 
+use App\Jobs\Job;
 use App\Services\Organization;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
@@ -15,19 +16,13 @@ class ConnectOrganizationJob extends Job implements ShouldBeUnique
 
     public function handle(Organization $organization): void
     {
-        $this->connectRepositories($organization);
+        foreach ($organization->repositories($this->organization) as $repository) {
+            ConnectRepositoryJob::dispatch($this->organization, $repository['name'], false);
+        }
     }
 
     public function uniqueId(): string
     {
         return $this->organization;
-    }
-
-    protected function connectRepositories(Organization $organization): void
-    {
-        foreach ($organization->repositories($this->organization) as $repository) {
-            dump($repository);
-            ConnectRepositoryJob::dispatch($this->organization, $repository['name'], false);
-        }
     }
 }
