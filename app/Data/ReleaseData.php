@@ -12,7 +12,7 @@ class ReleaseData extends Data
 {
     #[MapInputName('repository.full_name')]
     public string $fullName;
-    
+
     #[MapInputName('repository.owner.login')]
     public string $organization;
 
