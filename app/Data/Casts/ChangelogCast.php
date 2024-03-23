@@ -11,7 +11,7 @@ class ChangelogCast implements Cast
 {
     protected string $user = '<a href="https://github.com/$1">$1</a>';
 
-    protected string $pullRequest = '<a href="https://github.com/%s/%s/pull/$1">#$1</a>';
+    protected string $pullRequest = '<a href="https://github.com/%s/pull/$1">#$1</a>';
 
     protected string $listItem = '- <code>[$1]</code>';
 
@@ -38,7 +38,7 @@ class ChangelogCast implements Cast
 
     protected function pull(array $properties): string
     {
-        return sprintf($this->pullRequest, $properties['organization'], $properties['repository']);
+        return sprintf($this->pullRequest, $properties['fullName']);
     }
 
     protected function limit(): int
