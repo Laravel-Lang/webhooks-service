@@ -14,6 +14,7 @@
         "defstudio/telegraph": "^1.42",
         "dragon-code/laravel-actions": "^4.5",
         "dragon-code/laravel-json-response": "^3.0",
+        "graham-campbell/github": "^12.6",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "sentry/sentry-laravel": "^4.3",

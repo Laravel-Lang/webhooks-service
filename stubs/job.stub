@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Jobs\Job;
+
+class {{ class }} extends Job
+{
+    public function handle(): void
+    {
+        //
+    }
+}

@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Data\ReleaseData;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Spatie\LaravelData\Data;
 
-class PullRequest extends FormRequest
+/** @method ReleaseData dto() */
+class ReleaseRequest extends FormRequest
 {
+    protected Data|string $data = ReleaseData::class;
+
     public function rules(): array
     {
         return [
@@ -35,10 +38,5 @@ class PullRequest extends FormRequest
             'repository.disabled'    => ['required', 'bool', 'declined'],
             'repository.is_template' => ['required', 'bool', 'declined'],
         ];
-    }
-
-    public function dto(): ReleaseData
-    {
-        return ReleaseData::from($this->validated());
     }
 }

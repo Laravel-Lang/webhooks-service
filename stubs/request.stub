@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Http\Requests\FormRequest;
+
+class {{ class }} extends FormRequest
+{
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
+}
