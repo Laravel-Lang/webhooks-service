@@ -36,6 +36,10 @@ return [
         'delay' => 5 * 60,
     ],
 
+    'actions' => [
+        'id' => 41898282,
+    ],
+
     'labels' => [
         'create' => [
             'added'          => ['0e8a16', 'Change that adds something'],

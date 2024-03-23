@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DependabotRequest;
 use App\Http\Requests\ReleaseRequest;
+use App\Http\Requests\TranslationRequest;
 use App\Services\Dependabot;
+use App\Services\PullRequest;
 use App\Services\Telegram;
 
 class GitHubController extends Controller
@@ -21,6 +23,13 @@ class GitHubController extends Controller
     public function dependabot(DependabotRequest $request, Dependabot $dependabot)
     {
         $dependabot->merge($request->dto());
+
+        return $this->success();
+    }
+
+    public function translation(TranslationRequest $request, PullRequest $pullRequest)
+    {
+        $pullRequest->machine($request->dto());
 
         return $this->success();
     }
