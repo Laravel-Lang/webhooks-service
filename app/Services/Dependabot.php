@@ -14,7 +14,7 @@ class Dependabot
         DependabotJob::dispatch(
             $data->organization,
             $data->repository,
-            $data->id
+            $data->pullRequestId
         )->delay(config('github.dependabot.delay'));
     }
 }

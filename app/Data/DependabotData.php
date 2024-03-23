@@ -8,7 +8,7 @@ use Spatie\LaravelData\Data;
 class DependabotData extends Data
 {
     #[MapInputName('pull_request.number')]
-    public int $id;
+    public int $pullRequestId;
 
     #[MapInputName('organization.login')]
     public string $organization;
