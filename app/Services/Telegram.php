@@ -14,7 +14,14 @@ class Telegram
     public function publish(ReleaseData $data): void
     {
         $this->chats()->each(
-            fn (TelegraphChat $chat) => ReleaseJob::dispatch($chat->id, $data)
+            fn (TelegraphChat $chat) => ReleaseJob::dispatch(
+                $chat->id,
+                $data->organization,
+                $data->repository,
+                $data->version,
+                $data->changelog,
+                $data->url
+            )
         );
     }
 
