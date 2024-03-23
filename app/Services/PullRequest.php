@@ -44,7 +44,7 @@ class PullRequest
 
     public function assign(AssignData $data): void
     {
-        Str::of($data->title)
+        $users = Str::of($data->title)
             ->matchAll('/\[([\w\-,\s]+)\]:.+/')
             ->map(function (string $match) {
                 $team = config('github.team', []);
@@ -56,10 +56,21 @@ class PullRequest
             ->flatten()
             ->filter()
             ->unique()
-            ->each(fn (string $user) => $this->github->issues()->assignees()->add(
-                $user,
-                $data->organization,
-                $data->pullRequestId
-            ));
+            ->values()
+            ->all();
+
+        $this->github->issues()->assignees()->add(
+            $data->organization,
+            $data->repository,
+            $data->pullRequestId,
+            ['assignees' => $users->all()]
+        );
+
+        $this->github->pullRequest()->reviewRequests()->create(
+            $data->organization,
+            $data->repository,
+            $data->pullRequestId,
+            $users->reject(fn (string $user) => $user === $data->pullRequestAuthor)->all()
+        );
     }
 }

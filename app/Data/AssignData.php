@@ -7,7 +7,7 @@ use Spatie\LaravelData\Data;
 
 class AssignData extends Data
 {
-    #[MapInputName('organization.login')]
+    #[MapInputName('repository.owner.login')]
     public string $organization;
 
     #[MapInputName('repository.name')]
@@ -15,6 +15,9 @@ class AssignData extends Data
 
     #[MapInputName('pull_request.number')]
     public string $pullRequestId;
+
+    #[MapInputName('pull_request.user.login')]
+    public string $pullRequestAuthor;
 
     #[MapInputName('pull_request.title')]
     public string $title;

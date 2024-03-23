@@ -17,7 +17,7 @@ class TranslationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'action' => ['required', 'string', 'in:opened,labeled'],
+            'action' => ['required', 'string', 'in:opened,edited,labeled'],
 
             'pull_request'          => ['required', 'array'],
             'pull_request.state'    => ['required', 'string', 'in:open'],
