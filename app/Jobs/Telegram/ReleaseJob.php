@@ -53,6 +53,6 @@ class ReleaseJob extends Job
 
     protected function chat(): TelegraphChat
     {
-        return $this->chat ??= TelegraphChat::where('chat_id', $this->chatId)->firstOrFail();
+        return $this->chat ??= TelegraphChat::findOrFail($this->chatId);
     }
 }
