@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Data\CreatedRepositoryData;
+use App\Data\PullRequestData;
 use App\Jobs\GitHub\SyncLabelsJob;
 use Closure;
 use Illuminate\Http\Request;
@@ -62,8 +62,6 @@ class GitHubMiddleware
 
     protected function connect(array $data): void
     {
-        SyncLabelsJob::dispatch(
-            CreatedRepositoryData::from($data)
-        );
+        SyncLabelsJob::dispatch(PullRequestData::from($data));
     }
 }

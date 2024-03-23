@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace App\Jobs\GitHub;
 
-use App\Data\CreatedRepositoryData;
+use App\Data\PullRequestData;
 use App\Jobs\Job;
-use GrahamCampbell\GitHub\GitHubManager;
+use App\Services\PullRequest;
 
 class SyncLabelsJob extends Job
 {
     public function __construct(
-        public CreatedRepositoryData $data
+        public PullRequestData $data
     ) {}
 
-    public function handle(GitHubManager $github): void
+    public function handle(PullRequest $pullRequest): void
     {
-        $this->create($github);
-        $this->remove($github);
+        $this->create($pullRequest);
+        $this->remove($pullRequest);
     }
 
-    protected function create(GitHubManager $github): void
+    protected function create(PullRequest $pullRequest): void
     {
         foreach ($this->toCreate() as $name => $values) {
-            $this->updateOrCreate($github, $name, [
+            $this->updateOrCreate($pullRequest, $name, [
                 'name'        => $name,
                 'color'       => $values[0],
                 'description' => $values[1],
@@ -31,37 +31,16 @@ class SyncLabelsJob extends Job
         }
     }
 
-    protected function remove(GitHubManager $github): void
+    protected function remove(PullRequest $pullRequest): void
     {
         foreach ($this->toRemove() as $name) {
-            $this->removeLabel($github, $name);
+            $pullRequest->removeLabel($this->data, $name);
         }
     }
 
-    protected function updateOrCreate(GitHubManager $github, string $name, array $params): void
+    protected function updateOrCreate(PullRequest $pullRequest, string $name, array $params): void
     {
-        rescue(
-            fn () => $github->repository()->labels()->update(
-                $this->data->organization,
-                $this->data->repository,
-                $name,
-                $params
-            ),
-            fn () => $github->repository()->labels()->create(
-                $this->data->organization,
-                $this->data->repository,
-                $params
-            )
-        );
-    }
-
-    protected function removeLabel(GitHubManager $github, string $name): void
-    {
-        rescue(fn () => $github->repository()->labels()->remove(
-            $this->data->organization,
-            $this->data->repository,
-            $name,
-        ));
+        $pullRequest->createLabel($this->data, $name, $params);
     }
 
     protected function toCreate(): array

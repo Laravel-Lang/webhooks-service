@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Jobs\GitHub;
 
+use App\Data\PullRequestData;
 use App\Jobs\Job;
-use GrahamCampbell\GitHub\GitHubManager;
+use App\Services\PullRequest;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class DependabotJob extends Job implements ShouldBeUnique
@@ -15,32 +16,20 @@ class DependabotJob extends Job implements ShouldBeUnique
     public int $uniqueFor = 600;
 
     public function __construct(
-        public string $organization,
-        public string $repository,
-        public int $pullRequestId
+        public PullRequestData $data
     ) {}
 
-    public function handle(GitHubManager $github): void
+    public function handle(PullRequest $pullRequest): void
     {
-        $github->issues()->comments()->create(
-            $this->organization,
-            $this->repository,
-            $this->pullRequestId,
-            $this->body()
-        );
+        $pullRequest->comment($this->data, $this->message);
     }
 
     public function uniqueId(): string
     {
         return implode(':', [
-            $this->organization,
-            $this->repository,
-            $this->pullRequestId,
+            $this->data->organization,
+            $this->data->repository,
+            $this->data->id,
         ]);
-    }
-
-    protected function body(): array
-    {
-        return ['body' => $this->message];
     }
 }

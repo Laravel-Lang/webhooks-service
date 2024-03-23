@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Data\DependabotData;
+use App\Data\PullRequestData;
 use App\Jobs\GitHub\DependabotJob;
 
 class Dependabot
 {
-    public function merge(DependabotData $data): void
+    public function merge(PullRequestData $data): void
     {
-        DependabotJob::dispatch(
-            $data->organization,
-            $data->repository,
-            $data->pullRequestId
-        )->delay(config('github.dependabot.delay'));
+        DependabotJob::dispatch($data)->delay(
+            config('github.dependabot.delay')
+        );
     }
 }
