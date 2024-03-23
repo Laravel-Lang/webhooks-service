@@ -15,6 +15,8 @@ return [
         'changelog' => [
             'limit' => 384,
         ],
+
+        'max_errors' => 10,
     ],
 
     'github' => [
