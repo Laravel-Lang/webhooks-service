@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Data\DependabotData;
+use App\Data\PullRequestData;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
 
-/** @method DependabotData dto() */
+/** @method PullRequestData dto() */
 class DependabotRequest extends FormRequest
 {
-    protected Data|string $data = DependabotData::class;
+    protected Data|string $data = PullRequestData::class;
 
     public function rules(): array
     {

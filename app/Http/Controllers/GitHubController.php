@@ -30,7 +30,7 @@ class GitHubController extends Controller
 
     public function translation(TranslationRequest $request, PullRequest $pullRequest)
     {
-        $pullRequest->machine($request->dto());
+        $pullRequest->approveMachine($request->dto());
 
         return $this->success();
     }

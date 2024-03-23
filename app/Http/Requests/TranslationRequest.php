@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Data\TranslationData;
+use App\Data\PullRequestData;
 use App\Rules\HasLabelRule;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
 
-/** @method TranslationData dto() */
+/** @method PullRequestData dto() */
 class TranslationRequest extends FormRequest
 {
-    protected Data|string $data = TranslationData::class;
+    protected Data|string $data = PullRequestData::class;
 
     public function rules(): array
     {

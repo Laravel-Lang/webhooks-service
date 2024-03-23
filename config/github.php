@@ -20,7 +20,6 @@ return [
         'main' => [
             'method' => 'token',
             'token'  => env('GITHUB_TOKEN'),
-            'secret' => env('GITHUB_SECRET'),
         ],
     ],
 

@@ -4,73 +4,95 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Data\AssignData;
-use App\Data\TranslationData;
+use App\Data\PullRequestData;
 use App\Jobs\GitHub\AutoMergeJob;
 use GrahamCampbell\GitHub\GitHubManager;
-use Illuminate\Support\Str;
 
 class PullRequest
 {
     public function __construct(
-        protected GitHubManager $github
+        protected GitHubManager $github,
+        protected TeamParser $teamParser,
     ) {}
 
-    public function machine(TranslationData $data): void
+    public function approveMachine(PullRequestData $data): void
     {
         AutoMergeJob::dispatch($data);
     }
 
-    public function approve(TranslationData $data): void
+    public function approve(PullRequestData $data): void
     {
         $this->github->pullRequest()->reviews()->create(
             $data->organization,
             $data->repository,
-            $data->pullRequestId,
+            $data->id,
             ['event' => 'APPROVE', 'body' => 'Auto approve']
         );
     }
 
-    public function merge(TranslationData $data): void
+    public function merge(PullRequestData $data): void
     {
         $this->github->pullRequest()->merge(
             $data->organization,
             $data->repository,
-            $data->pullRequestId,
+            $data->id,
             $data->body,
             $data->hash
         );
     }
 
-    public function assign(AssignData $data): void
+    public function assign(PullRequestData $data): void
     {
-        $users = Str::of($data->title)
-            ->matchAll('/\[([\w\-,\s]+)\]:.+/')
-            ->map(function (string $match) {
-                $team = config('github.team', []);
-
-                return Str::of($match)->explode(',')->map(
-                    fn (string $locale) => $team[trim($locale)] ?? false
-                );
-            })
-            ->flatten()
-            ->filter()
-            ->unique()
-            ->values()
-            ->all();
+        $users = $this->teamParser->forLocale($data->title);
 
         $this->github->issues()->assignees()->add(
             $data->organization,
             $data->repository,
-            $data->pullRequestId,
+            $data->id,
             ['assignees' => $users->all()]
         );
 
         $this->github->pullRequest()->reviewRequests()->create(
             $data->organization,
             $data->repository,
-            $data->pullRequestId,
-            $users->reject(fn (string $user) => $user === $data->pullRequestAuthor)->all()
+            $data->id,
+            $users->reject(fn (string $user) => $user === $data->author)->all()
         );
+    }
+
+    public function comment(PullRequestData $data, string $body): void
+    {
+        $this->github->issues()->comments()->create(
+            $data->organization,
+            $data->repository,
+            $data->id,
+            compact('body')
+        );
+    }
+
+    public function createLabel(PullRequestData $data, string $name, array $params): void
+    {
+        rescue(
+            fn () => $this->github->repository()->labels()->update(
+                $data->organization,
+                $data->repository,
+                $name,
+                $params
+            ),
+            fn () => $this->github->repository()->labels()->create(
+                $data->organization,
+                $data->repository,
+                $params
+            )
+        );
+    }
+
+    public function removeLabel(PullRequestData $data, string $name): void
+    {
+        rescue(fn () => $this->github->repository()->labels()->remove(
+            $data->organization,
+            $data->repository,
+            $name,
+        ));
     }
 }
