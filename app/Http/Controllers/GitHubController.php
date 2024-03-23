@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AssignRequest;
 use App\Http\Requests\DependabotRequest;
 use App\Http\Requests\ReleaseRequest;
 use App\Http\Requests\TranslationRequest;
@@ -30,6 +31,13 @@ class GitHubController extends Controller
     public function translation(TranslationRequest $request, PullRequest $pullRequest)
     {
         $pullRequest->machine($request->dto());
+
+        return $this->success();
+    }
+
+    public function assign(AssignRequest $request, PullRequest $pullRequest)
+    {
+        $pullRequest->assign($request->dto());
 
         return $this->success();
     }

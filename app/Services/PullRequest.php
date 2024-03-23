@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Data\AssignData;
 use App\Data\TranslationData;
 use App\Jobs\GitHub\AutoMergeJob;
 use GrahamCampbell\GitHub\GitHubManager;
+use Illuminate\Support\Str;
 
 class PullRequest
 {
@@ -38,5 +40,26 @@ class PullRequest
             $data->body,
             $data->hash
         );
+    }
+
+    public function assign(AssignData $data): void
+    {
+        Str::of($data->title)
+            ->matchAll('/\[([\w\-,\s]+)\]:.+/')
+            ->map(function (string $match) {
+                $team = config('github.team', []);
+
+                return Str::of($match)->explode(',')->map(
+                    fn (string $locale) => $team[trim($locale)] ?? false
+                );
+            })
+            ->flatten()
+            ->filter()
+            ->unique()
+            ->each(fn (string $user) => $this->github->issues()->assignees()->add(
+                $user,
+                $data->organization,
+                $data->pullRequestId
+            ));
     }
 }
