@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Data\CreatedRepositoryData;
+use App\Jobs\GitHub\SyncLabelsJob;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -20,6 +22,8 @@ class GitHubMiddleware
         $this->throw(fn () => $this->hashed($request));
 
         if ($this->hasCreatedHook($request)) {
+            $this->connect($request->all());
+
             return response()->json('pong');
         }
 
@@ -54,5 +58,12 @@ class GitHubMiddleware
     protected function secret(): string
     {
         return config('services.github.token');
+    }
+
+    protected function connect(array $data): void
+    {
+        SyncLabelsJob::dispatch(
+            CreatedRepositoryData::from($data)
+        );
     }
 }

@@ -16,6 +16,4 @@ abstract class Job implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
-
-    abstract public function handle(): void;
 }
