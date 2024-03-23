@@ -15,24 +15,33 @@ class ChangelogCast implements Cast
 
     protected string $listItem = '- <code>[$1]</code>';
 
+    protected string $fullChanges = '<a href="https://github.com/$1/$2/compare/$3">$3</a>';
+
     protected array $options = [
         'html_input'         => 'strip',
         'allow_unsafe_links' => false,
     ];
 
-    protected array $tagsFrom = ['h2', '<ul>', '</ul>', '<li>', '</li>'];
+    protected array $tagsFrom = ['h2', '<li>'];
 
-    protected array $tagsTo = ['b', '', '', '- ', ''];
+    protected array $tagsTo = ['b', '- '];
+
+    protected string $allowedTags = '<h2><li><i>';
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): string
     {
         return Str::of($value)
             ->limit($this->limit())
             ->markdown($this->options)
+            ->stripTags($this->allowedTags)
             ->replace($this->tagsFrom, $this->tagsTo)
             ->replaceMatches('/@([\w\d\-_]+)/', $this->user)
             ->replaceMatches('/#(\d+)/', $this->pull($properties))
             ->replaceMatches('/-\s+\[(.+)]/', $this->listItem)
+            ->replaceMatches(
+                '/https:\/\/github\.com\/([\w\d\-_]+)\/([\w\d\-_]+)\/compare\/([\d.]+)/',
+                $this->fullChanges
+            )
             ->toString();
     }
 

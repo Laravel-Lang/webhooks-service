@@ -26,6 +26,7 @@ class PullRequest extends FormRequest
 
             'repository.owner.login' => ['required', 'string'],
             'repository.name'        => ['required', 'string', Rule::notIn(config('services.telegram.excludes'))],
+            'repository.full_name'   => ['required', 'string', 'regex:/([\d\w\-_])+\/([\d\w\-_])+/'],
 
             'repository.visibility' => ['required', 'string', 'in:public'],
 
