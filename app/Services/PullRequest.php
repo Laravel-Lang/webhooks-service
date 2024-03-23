@@ -69,30 +69,4 @@ class PullRequest
             compact('body')
         );
     }
-
-    public function createLabel(PullRequestData $data, string $name, array $params): void
-    {
-        rescue(
-            fn () => $this->github->repository()->labels()->update(
-                $data->organization,
-                $data->repository,
-                $name,
-                $params
-            ),
-            fn () => $this->github->repository()->labels()->create(
-                $data->organization,
-                $data->repository,
-                $params
-            )
-        );
-    }
-
-    public function removeLabel(PullRequestData $data, string $name): void
-    {
-        rescue(fn () => $this->github->repository()->labels()->remove(
-            $data->organization,
-            $data->repository,
-            $name,
-        ));
-    }
 }
