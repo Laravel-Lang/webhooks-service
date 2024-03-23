@@ -4,10 +4,6 @@
 
 > Service for quickly publishing information about new releases in Telegram chats.
 
-## Documentation
-
-See the [documentation](https://laravel-lang.com) for detailed installation and [usage](https://laravel-lang.com/manage-locales.html) instructions.
-
 ## Contributing
 
 Please see [CONTRIBUTING](https://laravel-lang.com/contributions.html) for details.
