@@ -1,6 +1,6 @@
-# Release Publisher
+# Webhooks Service
 
-![](https://preview.dragon-code.pro/laravel-lang/release-publisher.svg?brand=laravel)
+![](https://preview.dragon-code.pro/laravel-lang/webhooks-service.svg?brand=laravel)
 
 > Service for quickly publishing information about new releases in Telegram chats.
 
