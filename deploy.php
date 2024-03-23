@@ -41,6 +41,7 @@ task('deploy', [
     'artisan:actions:before',
     'deploy:publish',
     'php-fpm:reload',
+    'artisan:queue:restart',
     'artisan:actions',
 ]);
 
