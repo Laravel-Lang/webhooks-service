@@ -15,4 +15,8 @@ app('router')
         app('router')
             ->name('dependabot')
             ->post('dependabot', 'dependabot');
+
+        app('router')
+            ->name('translation')
+            ->post('translation', 'translation');
     });
