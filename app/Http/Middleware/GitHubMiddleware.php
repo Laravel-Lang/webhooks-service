@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Jobs\ConnectOrganizationJob;
-use App\Jobs\ConnectRepositoryJob;
+use App\Jobs\GitHub\ConnectOrganizationJob;
+use App\Jobs\GitHub\ConnectRepositoryJob;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;

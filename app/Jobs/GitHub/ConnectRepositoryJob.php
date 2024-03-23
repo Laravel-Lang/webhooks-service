@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs;
+namespace App\Jobs\GitHub;
 
-use App\Jobs\GitHub\SyncLabelsJob;
+use App\Jobs\Job;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class ConnectRepositoryJob extends Job implements ShouldBeUnique
@@ -17,16 +17,11 @@ class ConnectRepositoryJob extends Job implements ShouldBeUnique
 
     public function handle(): void
     {
-        $this->labels();
+        SyncLabelsJob::dispatch($this->organization, $this->repository);
     }
 
     public function uniqueId(): string
     {
         return $this->organization . ':' . $this->repository;
-    }
-
-    protected function labels(): void
-    {
-        SyncLabelsJob::dispatch($this->organization, $this->repository);
     }
 }

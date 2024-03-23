@@ -41,6 +41,13 @@ return [
         'id' => 41898282,
     ],
 
+    'webhooks' => [
+        'github.assign'      => ['pull_request'],
+        'github.dependabot'  => ['pull_request'],
+        'github.release'     => ['release'],
+        'github.translation' => ['pull_request'],
+    ],
+
     'labels' => [
         'create' => [
             'added'          => ['0e8a16', 'Change that adds something'],
