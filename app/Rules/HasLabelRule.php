@@ -6,26 +6,34 @@ namespace App\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Collection;
 
 readonly class HasLabelRule implements ValidationRule
 {
     public function __construct(
-        public string $label
-    ) {}
+        protected string | array $labels
+    ) {
+    }
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (! is_array($value)) {
+        if (!is_array($value)) {
             $fail('validation.array')->translate();
         }
 
-        if ($this->has($value)) {
+        if (!$this->has(collect($value))) {
             $fail('validation.in')->translate();
         }
     }
 
-    protected function has(array $labels): bool
+    protected function has(Collection $labels): bool
     {
-        return collect($labels)->contains('name', $this->label);
+        foreach ((array)$this->labels as $label) {
+            if ($labels->contains('name', $label)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
