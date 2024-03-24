@@ -10,7 +10,8 @@ class Repository
 {
     public function __construct(
         protected GitHubManager $github
-    ) {}
+    ) {
+    }
 
     public function createLabel(string $organization, string $repository, string $name, array $params): void
     {
@@ -25,7 +26,8 @@ class Repository
                 $organization,
                 $repository,
                 $params
-            )
+            ),
+            false
         );
     }
 
@@ -35,6 +37,6 @@ class Repository
             $organization,
             $repository,
             $name
-        ));
+        ), report: false);
     }
 }
