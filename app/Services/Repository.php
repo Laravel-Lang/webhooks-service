@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Data\RepositoryData;
+use App\Jobs\GitHub\ConnectRepositoryJob;
 use GrahamCampbell\GitHub\GitHubManager;
 
 class Repository
@@ -11,6 +13,11 @@ class Repository
     public function __construct(
         protected GitHubManager $github
     ) {}
+
+    public function connect(RepositoryData $data): void
+    {
+        ConnectRepositoryJob::dispatch($data->organization, $data->repository);
+    }
 
     public function createLabel(string $organization, string $repository, string $name, array $params): void
     {

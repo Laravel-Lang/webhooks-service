@@ -17,7 +17,7 @@ class StringServiceProvider extends ServiceProvider
 
             $result = $rows
                 ->take($limit)
-                ->when($rows->count() > $limit, fn (Collection $items) => $items->push('...'))
+                ->when($limit < $rows->count(), fn (Collection $items) => $items->push('...'))
                 ->implode(PHP_EOL);
 
             return new Stringable($result);

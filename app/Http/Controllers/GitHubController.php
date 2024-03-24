@@ -8,14 +8,18 @@ use App\Http\Requests\AssignRequest;
 use App\Http\Requests\AutoMergeRequest;
 use App\Http\Requests\DependabotRequest;
 use App\Http\Requests\ReleaseRequest;
+use App\Http\Requests\RepositoryRequest;
 use App\Services\Dependabot;
 use App\Services\PullRequest;
+use App\Services\Repository;
 use App\Services\Telegram;
 
 class GitHubController extends Controller
 {
-    public function connect()
+    public function connect(RepositoryRequest $request, Repository $repository)
     {
+        $repository->connect($request->dto());
+
         return $this->success();
     }
 

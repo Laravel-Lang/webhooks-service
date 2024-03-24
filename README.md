@@ -6,18 +6,13 @@
 
 ## Available Routes
 
-| Method | URL               | Description                                                                                                       |
-|--------|-------------------|-------------------------------------------------------------------------------------------------------------------|
-| `POST` | `/api/assign`     | Identifies by PR title the team members responsible for its review                                                |
-| `POST` | `/api/dependabot` | Sends a comment to PR from Dependabot for acceptance after successfully passing the tests                         |
-| `POST` | `/api/release`    | Calls the mechanism for publishing information about the release on social networks of the "Laravel-Lang" project |
-| `POST` | `/api/merge`      | Automatic approval and acceptance of PRs that meet certain conditions                                             |
-
-> When adding any webhook, labels will also be updated in accordance with the settings:
-> 
-> When added to an organization, the labels will be updated for all repositories.
-> 
-> When added to a project, labels will be updated only for this project.
+| Method | URL               | Required Events       | Description                                                                                                       |
+|--------|-------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------|
+| `POST` | `/api/connect`    | Repositories          | Webhook responsible for the initial setup of the repository                                                       |
+| `POST` | `/api/assign`     | Pull Requests, Issues | Identifies by PR title the team members responsible for its review                                                |
+| `POST` | `/api/dependabot` | Pull Requests         | Sends a comment to PR from Dependabot for acceptance after successfully passing the tests                         |
+| `POST` | `/api/release`    | Releases              | Calls the mechanism for publishing information about the release on social networks of the "Laravel-Lang" project |
+| `POST` | `/api/merge`      | Pull Requests         | Automatic approval and acceptance of PRs that meet certain conditions                                             |
 
 To display a list of all routes, run the console command:
 
