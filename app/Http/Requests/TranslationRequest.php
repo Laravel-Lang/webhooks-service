@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Data\PullRequestData;
-use App\Rules\HasLabelRule;
+use App\Rules\InCollectionRule;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
 
@@ -25,7 +25,7 @@ class TranslationRequest extends FormRequest
             'pull_request.draft'    => ['required', 'bool', 'declined'],
             'pull_request.number'   => ['required', 'numeric'],
             'pull_request.head.sha' => ['required', 'string'],
-            'pull_request.labels'   => ['required', 'array', new HasLabelRule('machine')],
+            'pull_request.labels'   => ['required', 'array', new InCollectionRule('name', 'machine')],
 
             'sender'    => ['required', 'array'],
             'sender.id' => ['required', 'numeric', Rule::in(config('github.actions.id'))],
