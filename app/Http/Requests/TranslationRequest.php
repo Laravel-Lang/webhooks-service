@@ -6,7 +6,6 @@ namespace App\Http\Requests;
 
 use App\Data\PullRequestData;
 use App\Rules\InCollectionRule;
-use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
 
 /** @method PullRequestData dto() */
@@ -19,22 +18,20 @@ class TranslationRequest extends FormRequest
         return [
             'action' => ['required', 'string', 'in:opened,edited,labeled'],
 
+            'repository'             => ['required', 'array'],
+            'repository.name'        => ['required', 'string'],
+            'repository.owner.login' => ['required', 'string'],
+
             'pull_request'          => ['required', 'array'],
-            'pull_request.state'    => ['required', 'string', 'in:open'],
-            'pull_request.locked'   => ['required', 'bool', 'declined'],
-            'pull_request.draft'    => ['required', 'bool', 'declined'],
             'pull_request.number'   => ['required', 'numeric'],
             'pull_request.head.sha' => ['required', 'string'],
-            'pull_request.labels'   => ['required', 'array', new InCollectionRule('name', 'machine')],
+            'pull_request.title'    => ['required', 'string'],
+            'pull_request.body'     => ['required', 'string'],
 
-            'sender'    => ['required', 'array'],
-            'sender.id' => ['required', 'numeric', Rule::in(config('github.actions.id'))],
-
-            'organization'       => ['required', 'array'],
-            'organization.login' => ['required', 'string'],
-
-            'repository'      => ['required', 'array'],
-            'repository.name' => ['required', 'string'],
+            'pull_request.state'  => ['required', 'string', 'in:open'],
+            'pull_request.locked' => ['required', 'bool', 'declined'],
+            'pull_request.draft'  => ['required', 'bool', 'declined'],
+            'pull_request.labels' => ['required', 'array', new InCollectionRule('name', 'machine')],
         ];
     }
 }
