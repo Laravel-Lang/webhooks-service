@@ -9,7 +9,7 @@ use App\Rules\InCollectionRule;
 use Spatie\LaravelData\Data;
 
 /** @method PullRequestData dto() */
-class TranslationRequest extends FormRequest
+class AutoMergeRequest extends FormRequest
 {
     protected Data|string $data = PullRequestData::class;
 
@@ -31,7 +31,12 @@ class TranslationRequest extends FormRequest
             'pull_request.state'  => ['required', 'string', 'in:open'],
             'pull_request.locked' => ['required', 'bool', 'declined'],
             'pull_request.draft'  => ['required', 'bool', 'declined'],
-            'pull_request.labels' => ['required', 'array', new InCollectionRule('name', 'machine')],
+            'pull_request.labels' => ['required', 'array', new InCollectionRule('name', $this->labels())],
         ];
+    }
+
+    protected function labels(): array
+    {
+        return config('github.pull_request.auto_merge');
     }
 }

@@ -44,6 +44,15 @@ return [
         'github.translation' => ['pull_request'],
     ],
 
+    'pull_request' => [
+        'auto_merge' => [
+            'locales',
+            'machine',
+            'statuses',
+            'sync',
+        ],
+    ],
+
     'labels' => [
         'create' => [
             'added'          => ['0e8a16', 'Change that adds something'],

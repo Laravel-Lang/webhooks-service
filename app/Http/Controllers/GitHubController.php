@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AssignRequest;
+use App\Http\Requests\AutoMergeRequest;
 use App\Http\Requests\DependabotRequest;
 use App\Http\Requests\ReleaseRequest;
-use App\Http\Requests\TranslationRequest;
 use App\Services\Dependabot;
 use App\Services\PullRequest;
 use App\Services\Telegram;
@@ -33,16 +33,16 @@ class GitHubController extends Controller
         return $this->success();
     }
 
-    public function translation(TranslationRequest $request, PullRequest $pullRequest)
+    public function assign(AssignRequest $request, PullRequest $pullRequest)
     {
-        $pullRequest->approveMachine($request->dto());
+        $pullRequest->assign($request->dto());
 
         return $this->success();
     }
 
-    public function assign(AssignRequest $request, PullRequest $pullRequest)
+    public function merge(AutoMergeRequest $request, PullRequest $pullRequest)
     {
-        $pullRequest->assign($request->dto());
+        $pullRequest->autoMerge($request->dto());
 
         return $this->success();
     }
