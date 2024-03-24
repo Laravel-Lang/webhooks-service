@@ -22,7 +22,7 @@ class TeamParser
             ->values();
     }
 
-    protected function mates(string $locale): array
+    protected function mates(string $locale): ?array
     {
         return config('github.team.' . trim($locale));
     }
