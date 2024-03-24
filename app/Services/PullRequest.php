@@ -15,7 +15,7 @@ class PullRequest
         protected TeamParser $teamParser,
     ) {}
 
-    public function approveMachine(PullRequestData $data): void
+    public function autoMerge(PullRequestData $data): void
     {
         AutoMergeJob::dispatch($data);
     }

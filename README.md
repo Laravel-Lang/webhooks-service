@@ -6,12 +6,12 @@
 
 ## Available Routes
 
-| Method | URL                | Description                                                                                                                                                 |
-|--------|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `POST` | `/api/assign`      | Identifies by PR title the team members responsible for its review                                                                                          |
-| `POST` | `/api/dependabot`  | Sends a comment to PR from Dependabot for acceptance after successfully passing the tests                                                                   |
-| `POST` | `/api/release`     | Calls the mechanism for publishing information about the release on social networks of the "Laravel-Lang" project                                           |
-| `POST` | `/api/translation` | Automatically approves and accepts PR with machine translation                                                                                              |
+| Method | URL               | Description                                                                                                       |
+|--------|-------------------|-------------------------------------------------------------------------------------------------------------------|
+| `POST` | `/api/assign`     | Identifies by PR title the team members responsible for its review                                                |
+| `POST` | `/api/dependabot` | Sends a comment to PR from Dependabot for acceptance after successfully passing the tests                         |
+| `POST` | `/api/release`    | Calls the mechanism for publishing information about the release on social networks of the "Laravel-Lang" project |
+| `POST` | `/api/merge`      | Automatic approval and acceptance of PRs that meet certain conditions                                             |
 
 > When adding any webhook, labels will also be updated in accordance with the settings:
 > 
