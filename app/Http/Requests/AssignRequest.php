@@ -15,20 +15,20 @@ class AssignRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'action' => ['required', 'string', 'in:opened,edited'],
-
-            'pull_request'        => ['required', 'array'],
-            'pull_request.state'  => ['required', 'string', 'in:open'],
-            'pull_request.locked' => ['required', 'bool', 'declined'],
-            'pull_request.draft'  => ['required', 'bool', 'declined'],
-
-            'pull_request.number'     => ['required', 'numeric'],
-            'pull_request.title'      => ['required', 'string'],
-            'pull_request.user.login' => ['required', 'string'],
+            'action' => ['required', 'string', 'in:opened'],
 
             'repository'             => ['required', 'array'],
             'repository.name'        => ['required', 'string'],
             'repository.owner.login' => ['required', 'string'],
+
+            'pull_request'            => ['required', 'array'],
+            'pull_request.user.login' => ['required', 'string'],
+            'pull_request.number'     => ['required', 'numeric'],
+            'pull_request.title'      => ['required', 'string'],
+
+            'pull_request.state'  => ['required', 'string', 'in:open'],
+            'pull_request.locked' => ['required', 'bool', 'declined'],
+            'pull_request.draft'  => ['required', 'bool', 'declined'],
         ];
     }
 }

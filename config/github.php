@@ -37,10 +37,6 @@ return [
         'delay' => 5 * 60,
     ],
 
-    'actions' => [
-        'id' => 41898282,
-    ],
-
     'webhooks' => [
         'github.assign'      => ['pull_request'],
         'github.dependabot'  => ['pull_request'],
