@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Data\PullRequestData;
 use App\Jobs\GitHub\AutoMergeJob;
+use App\Jobs\GitHub\DependabotJob;
 use GrahamCampbell\GitHub\GitHubManager;
 
 class PullRequest
@@ -13,7 +14,8 @@ class PullRequest
     public function __construct(
         protected GitHubManager $github,
         protected TeamParser $teamParser,
-    ) {}
+    ) {
+    }
 
     public function autoMerge(PullRequestData $data): void
     {
@@ -67,6 +69,13 @@ class PullRequest
             $data->repository,
             $data->id,
             compact('body')
+        );
+    }
+
+    public function dependabot(PullRequestData $data): void
+    {
+        DependabotJob::dispatch($data)->delay(
+            config('github.dependabot.delay')
         );
     }
 }

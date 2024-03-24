@@ -9,7 +9,7 @@ use App\Jobs\Telegram\ReleaseJob;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Database\Eloquent\Collection;
 
-class Telegram
+class Release
 {
     public function publish(ReleaseData $data): void
     {
