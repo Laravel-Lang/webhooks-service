@@ -16,7 +16,7 @@ use App\Services\Telegram;
 
 class GitHubController extends Controller
 {
-    public function connect(RepositoryRequest $request, Repository $repository)
+    public function repository(RepositoryRequest $request, Repository $repository)
     {
         $repository->connect($request->dto());
 
