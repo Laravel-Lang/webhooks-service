@@ -45,6 +45,8 @@ return [
     ],
 
     'pull_request' => [
+        'delay' => 3 * 60,
+
         'auto_merge' => [
             'locales',
             'machine',

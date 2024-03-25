@@ -14,12 +14,13 @@ class PullRequest
     public function __construct(
         protected GitHubManager $github,
         protected TeamParser $teamParser,
-    ) {
-    }
+    ) {}
 
     public function autoMerge(PullRequestData $data): void
     {
-        AutoMergeJob::dispatch($data);
+        AutoMergeJob::dispatch($data)->delay(
+            config('github.pull_request.delay')
+        );
     }
 
     public function approve(PullRequestData $data): void
