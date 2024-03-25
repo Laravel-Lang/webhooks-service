@@ -16,7 +16,7 @@ class AutoMergeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'action' => ['required', 'string', 'in:opened,edited,labeled'],
+            'action' => ['required', 'string', 'in:opened,labeled'],
 
             'repository'             => ['required', 'array'],
             'repository.name'        => ['required', 'string'],
