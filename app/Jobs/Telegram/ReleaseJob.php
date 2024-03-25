@@ -23,7 +23,7 @@ class ReleaseJob extends Job
 
     public function handle(): void
     {
-        $this->send();
+        $this->sendTelegram();
         $this->resetErrors();
     }
 
@@ -34,7 +34,7 @@ class ReleaseJob extends Job
             : $this->chat()->delete();
     }
 
-    protected function send(): void
+    protected function sendTelegram(): void
     {
         retry(5, fn () => $this->chat()->html($this->message())->send());
     }
