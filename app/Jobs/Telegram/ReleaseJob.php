@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs\Telegram;
 
+use App\Integrations\Boosty;
 use App\Jobs\Job;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Throwable;
@@ -21,9 +22,10 @@ class ReleaseJob extends Job
         public string $url
     ) {}
 
-    public function handle(): void
+    public function handle(Boosty $boosty): void
     {
-        $this->send();
+        $this->sendTelegram();
+        $this->sendBoosty($boosty);
         $this->resetErrors();
     }
 
@@ -34,9 +36,19 @@ class ReleaseJob extends Job
             : $this->chat()->delete();
     }
 
-    protected function send(): void
+    protected function sendTelegram(): void
     {
         retry(5, fn () => $this->chat()->html($this->message())->send());
+    }
+
+    protected function sendBoosty(Boosty $boosty): void
+    {
+        retry(5, fn () => $boosty->publish(
+            sprintf('%s %s %s released', $this->organization, $this->repository, $this->version),
+            $this->changelog,
+            $this->url,
+            [$this->repository]
+        ));
     }
 
     protected function message(): string
