@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Jobs\Telegram;
 
+use App\Helpers\Tags;
 use App\Jobs\Job;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use Illuminate\Support\Str;
 use Throwable;
 
 class ReleaseJob extends Job
@@ -14,7 +16,6 @@ class ReleaseJob extends Job
 
     public function __construct(
         public int $chatId,
-        public string $organization,
         public string $repository,
         public string $version,
         public string $changelog,
@@ -42,12 +43,22 @@ class ReleaseJob extends Job
     protected function message(): string
     {
         return view('message', [
-            'organization' => $this->organization,
-            'repository'   => $this->repository,
-            'version'      => $this->version,
-            'changelog'    => $this->changelog,
-            'url'          => $this->url,
+            'repository' => $this->repository,
+            'version'    => $this->version,
+            'changelog'  => $this->changelog,
+            'url'        => $this->url,
+            'tags'       => $this->repositoryTags(),
         ])->toHtml();
+    }
+
+    protected function repositoryTags(): string
+    {
+        return collect(Tags::parse($this->repository))->map(
+            fn (string $tag) => Str::of($tag)
+                ->replace('-', '_')
+                ->prepend('#')
+                ->toString()
+        )->implode(' ');
     }
 
     protected function resetErrors(): void
