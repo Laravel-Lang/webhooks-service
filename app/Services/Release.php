@@ -14,7 +14,7 @@ class Release
 {
     public function publish(ReleaseData $data): void
     {
-        //        $this->publishToTelegram($data);
+        $this->publishToTelegram($data);
         $this->publishToBoosty($data);
     }
 
