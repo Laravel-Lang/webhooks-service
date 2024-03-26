@@ -22,7 +22,7 @@ readonly class Boosty
         );
     }
 
-    public function publish(string $title, string $body, string $url, array|string $tags): void
+    public function publish(string $title, string $body, string $url, array $tags): void
     {
         $this->client->post($this->url(), [
             'title' => $title,
@@ -34,7 +34,7 @@ readonly class Boosty
             ]),
             'price'           => 0,
             'teaser_data'     => [],
-            'tags'            => implode(',', (array) $tags),
+            'tags'            => implode(',', $tags),
             'has_chat'        => false,
             'advertiser_info' => '',
         ])->throw();

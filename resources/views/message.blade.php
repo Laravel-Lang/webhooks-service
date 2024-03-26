@@ -1,5 +1,7 @@
-<b>{{ $organization }} {{ $repository }} {{ $version }} released</b>
+<b>{{ $repository }} {{ $version }} released</b>
 
-{!! $changelog !!}
+{!! trim($changelog) !!}
 
-{{ $url }}
+{{ trim($url) }}
+
+{{ $tags }}

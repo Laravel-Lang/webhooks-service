@@ -23,7 +23,6 @@ class Release
         $this->chats()->each(
             fn (TelegraphChat $chat) => ReleaseJob::dispatch(
                 $chat->id,
-                $data->organization,
                 $data->repository,
                 $data->version,
                 $data->changelog,
@@ -35,7 +34,6 @@ class Release
     protected function publishToBoosty(ReleaseData $data): void
     {
         PublishJob::dispatch(
-            $data->organization,
             $data->repository,
             $data->version,
             $data->changelog,
