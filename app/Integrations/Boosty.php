@@ -7,30 +7,25 @@ namespace App\Integrations;
 use App\Helpers\BoostyStyle;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 readonly class Boosty
 {
-    protected PendingRequest $client;
-
     public function __construct(
         protected string $token,
         protected string $blog,
-    ) {
-        $this->client = Http::acceptJson()->asForm()->withHeader(
-            'Authorization',
-            'Bearer ' . $this->token
-        );
-    }
+    ) {}
 
     public function publish(string $title, string $body, string $url, array $tags): void
     {
-        $this->client->post($this->url(), [
+        $this->client()->post(sprintf('https://api.boosty.to/v1/blog/%s/post/', $this->blog), [
             'title' => $title,
             'data'  => json_encode([
                 $this->textBlock($body),
                 $this->endBlock(),
                 $this->urlBlock($url),
                 $this->endBlock(),
+                $this->image(),
             ]),
             'price'           => 0,
             'teaser_data'     => [],
@@ -38,6 +33,17 @@ readonly class Boosty
             'has_chat'        => false,
             'advertiser_info' => '',
         ])->throw();
+    }
+
+    public function image(): array
+    {
+        return $this->client()
+            ->withBody($this->imageContent(), 'image/png')
+            ->post('https://uploadimg.boosty.to/v1/media_data/image/')
+            ->throw()
+            ->collect()
+            ->filter()
+            ->all();
     }
 
     protected function textBlock(string $text): array
@@ -73,8 +79,16 @@ readonly class Boosty
         ];
     }
 
-    protected function url(): string
+    protected function imageContent(): ?string
     {
-        return sprintf('https://api.boosty.to/v1/blog/%s/post/', $this->blog);
+        return Storage::disk('images')->get('splash.png');
+    }
+
+    protected function client(): PendingRequest
+    {
+        return Http::acceptJson()->asForm()->withHeader(
+            'Authorization',
+            'Bearer ' . $this->token
+        );
     }
 }
