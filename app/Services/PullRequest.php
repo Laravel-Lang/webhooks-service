@@ -8,12 +8,16 @@ use App\Data\PullRequestData;
 use App\Jobs\GitHub\AutoMergeJob;
 use App\Jobs\GitHub\DependabotJob;
 use GrahamCampbell\GitHub\GitHubManager;
+use Illuminate\Support\Arr;
 
 class PullRequest
 {
+    protected string $autoApproveMessage = 'Auto approve';
+
     public function __construct(
         protected GitHubManager $github,
         protected TeamParser $teamParser,
+        protected User $user,
     ) {}
 
     public function autoMerge(PullRequestData $data): void
@@ -29,8 +33,28 @@ class PullRequest
             $data->organization,
             $data->repository,
             $data->id,
-            ['event' => 'APPROVE', 'body' => 'Auto approve']
+            ['event' => 'APPROVE', 'body' => $this->autoApproveMessage]
         );
+    }
+
+    public function wasApproved(PullRequestData $data): bool
+    {
+        $reviews = $this->github->pullRequest()->reviews()->all(
+            $data->organization,
+            $data->repository,
+            $data->id
+        );
+
+        foreach ($reviews as $review) {
+            $body   = Arr::get($review, 'body');
+            $userId = Arr::get($review, 'user.id');
+
+            if ($body === $this->autoApproveMessage && $this->user->isMe($userId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function merge(PullRequestData $data): void
