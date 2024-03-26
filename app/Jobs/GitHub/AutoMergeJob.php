@@ -16,7 +16,10 @@ class AutoMergeJob extends Job
 
     public function handle(PullRequest $pullRequest): void
     {
-        $pullRequest->approve($this->data);
+        if (! $pullRequest->wasApproved($this->data)) {
+            $pullRequest->approve($this->data);
+        }
+
         $pullRequest->merge($this->data);
     }
 }
