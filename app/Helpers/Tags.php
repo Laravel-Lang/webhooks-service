@@ -15,6 +15,7 @@ class Tags
             ->explode('-')
             ->sort()
             ->prepend(static::prepare($value, '_'))
+            ->unique()
             ->take($max)
             ->all();
     }
