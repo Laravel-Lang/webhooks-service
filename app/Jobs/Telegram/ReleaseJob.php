@@ -39,8 +39,8 @@ class ReleaseJob extends Job
     {
         retry(5, function () {
             ($id = $this->chat()->thread_id)
-                ? $this->chat()->html($this->message())->withData('message_thread_id', $id)->send()
-                : $this->chat()->html($this->message())->send();
+                ? $this->chat()->html($this->message())->withData('message_thread_id', $id)->send()->throw()
+                : $this->chat()->html($this->message())->send()->throw();
         });
     }
 
