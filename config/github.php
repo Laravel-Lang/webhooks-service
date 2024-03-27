@@ -54,6 +54,7 @@ return [
         'create' => [
             'added'          => ['0e8a16', 'Change that adds something'],
             'bug'            => ['d93f0b', 'Something isn\'t working'],
+            'dependabot'     => ['1f2328', 'Changes suggested by Dependabot'],
             'dependencies'   => ['0366d6', 'Updating dependencies'],
             'feature'        => ['a2eeef', 'New feature or request'],
             'fix'            => ['d4c5f9', 'Functionality or something fix'],

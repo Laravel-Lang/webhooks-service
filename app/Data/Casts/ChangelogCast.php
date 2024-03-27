@@ -18,7 +18,7 @@ class ChangelogCast implements Cast
     protected string $fullLink = '/\*{0,2}Full\sChangelog\*{0,2}:\s.+\/compare\/[\d\.]+/';
 
     protected array $options = [
-        'html_input' => 'strip',
+        'html_input'         => 'strip',
         'allow_unsafe_links' => false,
     ];
 
