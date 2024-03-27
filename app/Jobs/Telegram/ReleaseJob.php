@@ -38,7 +38,7 @@ class ReleaseJob extends Job
     protected function sendTelegram(): void
     {
         retry(5, function () {
-            ($id = $this->chat->thread_id)
+            ($id = $this->chat()->thread_id)
                 ? $this->chat()->html($this->message())->withData('message_thread_id', $id)->send()
                 : $this->chat()->html($this->message())->send();
         });
