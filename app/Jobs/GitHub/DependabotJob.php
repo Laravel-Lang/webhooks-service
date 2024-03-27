@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class DependabotJob extends Job implements ShouldBeUnique
 {
-    protected string $message = '@dependabot rebase';
+    protected string $message = '@dependabot merge';
 
     public int $uniqueFor = 600;
 
