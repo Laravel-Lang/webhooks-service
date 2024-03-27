@@ -17,7 +17,7 @@ class RegisterWebhooks extends Command
     public function handle(): void
     {
         $this->bots()->each(
-            fn (TelegraphBot $bot) => $bot->registerWebhook()->send()
+            fn (TelegraphBot $bot) => $bot->registerWebhook()->send()->throw()
         );
     }
 
