@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5bade2ba3474747721b8ddfb7ee5d6d3",
+    "content-hash": "72079edb20765fe8bd46dcc9d270fafc",
     "packages": [
         {
             "name": "amphp/amp",
@@ -4662,16 +4662,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.1.1",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "34ccf6f6b49c915421c7886c88c0cb77f3ebbfd2"
+                "reference": "6bfea14bb0792e85f2e1ff0919487c88419c5883"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/34ccf6f6b49c915421c7886c88c0cb77f3ebbfd2",
-                "reference": "34ccf6f6b49c915421c7886c88c0cb77f3ebbfd2",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/6bfea14bb0792e85f2e1ff0919487c88419c5883",
+                "reference": "6bfea14bb0792e85f2e1ff0919487c88419c5883",
                 "shasum": ""
             },
             "require": {
@@ -4689,14 +4689,14 @@
             "require-dev": {
                 "doctrine/dbal": "^3.6.3 || ^4.0",
                 "doctrine/orm": "^2.15.2 || ^3.0",
-                "friendsofphp/php-cs-fixer": "^3.18.0",
-                "kylekatarnls/multi-tester": "^2.2.0",
-                "ondrejmirtes/better-reflection": "^6.11.0.0",
-                "phpmd/phpmd": "^2.13.0",
-                "phpstan/extension-installer": "^1.3.0",
-                "phpstan/phpstan": "^1.10.20",
-                "phpunit/phpunit": "^10.2.2",
-                "squizlabs/php_codesniffer": "^3.7.2"
+                "friendsofphp/php-cs-fixer": "^3.52.1",
+                "kylekatarnls/multi-tester": "^2.5.3",
+                "ondrejmirtes/better-reflection": "^6.25.0.4",
+                "phpmd/phpmd": "^2.15.0",
+                "phpstan/extension-installer": "^1.3.1",
+                "phpstan/phpstan": "^1.10.65",
+                "phpunit/phpunit": "^10.5.15",
+                "squizlabs/php_codesniffer": "^3.9.0"
             },
             "bin": [
                 "bin/carbon"
@@ -4764,7 +4764,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-13T12:42:37+00:00"
+            "time": "2024-03-27T18:14:36+00:00"
         },
         {
             "name": "nette/schema",
@@ -7045,6 +7045,53 @@
                 }
             ],
             "time": "2024-03-13T16:08:30+00:00"
+        },
+        {
+            "name": "steppinghat/emoji-detector",
+            "version": "1.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SteppingHat/php-emoji-detector.git",
+                "reference": "6423437a790c12df26fb5f9643a2894beded4ebe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SteppingHat/php-emoji-detector/zipball/6423437a790c12df26fb5f9643a2894beded4ebe",
+                "reference": "6423437a790c12df26fb5f9643a2894beded4ebe",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "symfony/var-dumper": "^5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SteppingHat\\EmojiDetector\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Javan Eskander",
+                    "homepage": "https://javaneskander.com"
+                }
+            ],
+            "description": "Detect and validate emoji in an input string",
+            "homepage": "https://github.com/steppinghat/emoji-detector",
+            "support": {
+                "issues": "https://github.com/SteppingHat/php-emoji-detector/issues",
+                "source": "https://github.com/SteppingHat/php-emoji-detector/tree/1.5.1"
+            },
+            "time": "2024-02-01T14:24:18+00:00"
         },
         {
             "name": "symfony/cache",

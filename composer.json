@@ -19,7 +19,8 @@
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "sentry/sentry-laravel": "^4.3",
-        "spatie/laravel-data": "^4.4"
+        "spatie/laravel-data": "^4.4",
+        "steppinghat/emoji-detector": "^1.5"
     },
     "require-dev": {
         "laravel-lang/common": "^6.2",
