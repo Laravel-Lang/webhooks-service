@@ -68,21 +68,21 @@ class PullRequest
 
     public function assign(PullRequestData $data): void
     {
-        $users = $this->teamParser->forLocale($data->title);
+        if (! blank($users = $this->matesForRequest($data))) {
+            $this->github->issues()->assignees()->add(
+                $data->organization,
+                $data->repository,
+                $data->id,
+                ['assignees' => $users->all()]
+            );
 
-        $this->github->issues()->assignees()->add(
-            $data->organization,
-            $data->repository,
-            $data->id,
-            ['assignees' => $users->all()]
-        );
-
-        $this->github->pullRequest()->reviewRequests()->create(
-            $data->organization,
-            $data->repository,
-            $data->id,
-            $users->reject(fn (string $user) => $user === $data->author)->all()
-        );
+            $this->github->pullRequest()->reviewRequests()->create(
+                $data->organization,
+                $data->repository,
+                $data->id,
+                $users->reject(fn (string $user) => $user === $data->author)->all()
+            );
+        }
     }
 
     public function comment(PullRequestData $data, string $body): void
@@ -98,5 +98,12 @@ class PullRequest
     public function dependabot(PullRequestData $data): void
     {
         DependabotJob::dispatch($data);
+    }
+
+    protected function matesForRequest(PullRequestData $data)
+    {
+        return $this->teamParser->forLocale($data->title)->reject(
+            fn (string $username) => $username === $data->author
+        );
     }
 }
