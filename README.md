@@ -20,6 +20,13 @@ To display a list of all routes, run the console command:
 php artisan route:list
 ```
 
+## Telegram Commands
+
+To connect a regular channel or group, just add the bot to the group with administrator rights.
+
+If your group is divided into forums, then in the forum topic you need to send the command `/connect` to the chat so
+that the bot can bind to the topic.
+
 ## Contributing
 
 Please see [CONTRIBUTING](https://laravel-lang.com/contributions.html) for details.
