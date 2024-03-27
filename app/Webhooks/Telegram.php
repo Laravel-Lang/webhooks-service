@@ -19,6 +19,8 @@ class Telegram extends WebhookHandler
             $this->chat->thread_id = $id;
             $this->chat->save();
         }
+
+        $this->removeMessage();
     }
 
     protected function threadId(): ?int
@@ -29,5 +31,12 @@ class Telegram extends WebhookHandler
     protected function isForum(): bool
     {
         return (bool) Arr::get($this->request->get('message', []), 'chat.is_forum', false);
+    }
+
+    protected function removeMessage(): void
+    {
+        $this->chat->deleteMessage(
+            $this->messageId
+        );
     }
 }
