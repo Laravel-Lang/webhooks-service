@@ -1,5 +1,6 @@
 <?php
 
+use App\Webhooks\Telegram;
 use DefStudio\Telegraph\Telegraph;
 
 return [
@@ -28,7 +29,7 @@ return [
          *
          * For reference, see https://defstudio.github.io/telegraph/webhooks/overview
          */
-        'handler' => DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
+        'handler' => Telegram::class,
 
         // Middleware to be applied to the webhook route
         'middleware' => [],
