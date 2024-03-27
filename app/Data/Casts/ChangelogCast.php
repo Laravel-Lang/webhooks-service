@@ -11,7 +11,7 @@ class ChangelogCast implements Cast
 {
     protected string $listItem = '- <code>[$1]</code>';
 
-    protected string $from = '/\sby\s@[\w\d\-]+\sin\s#\d+/';
+    protected string $from = '/\sby\s@[\w\d\-]+\s+in\s+#?.+/';
 
     protected string $fullLink = '/\*{0,2}Full\sChangelog\*{0,2}:\s.+\/compare\/[\d\.]+/';
 
