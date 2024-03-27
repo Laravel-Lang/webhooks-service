@@ -22,9 +22,7 @@ class PullRequest
 
     public function autoMerge(PullRequestData $data): void
     {
-        AutoMergeJob::dispatch($data)->delay(
-            config('github.pull_request.delay')
-        );
+        AutoMergeJob::dispatch($data);
     }
 
     public function approve(PullRequestData $data): void
@@ -99,8 +97,6 @@ class PullRequest
 
     public function dependabot(PullRequestData $data): void
     {
-        DependabotJob::dispatch($data)->delay(
-            config('github.dependabot.delay')
-        );
+        DependabotJob::dispatch($data);
     }
 }

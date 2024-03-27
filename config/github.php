@@ -32,9 +32,6 @@ return [
 
     'dependabot' => [
         'id' => 49699333,
-
-        // Delay in seconds
-        'delay' => 5 * 60,
     ],
 
     'webhooks' => [
@@ -45,8 +42,6 @@ return [
     ],
 
     'pull_request' => [
-        'delay' => 3 * 60,
-
         'auto_merge' => [
             'locales',
             'machine',
