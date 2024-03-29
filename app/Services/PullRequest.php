@@ -9,6 +9,7 @@ use App\Jobs\GitHub\AutoMergeJob;
 use App\Jobs\GitHub\DependabotJob;
 use GrahamCampbell\GitHub\GitHubManager;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class PullRequest
 {
@@ -79,6 +80,10 @@ class PullRequest
     public function assign(PullRequestData $data): void
     {
         if (! blank($users = $this->matesForRequest($data))) {
+            if ($users->contains($data->author)) {
+                return;
+            }
+
             $this->github->issues()->assignees()->add(
                 $data->organization,
                 $data->repository,
@@ -110,10 +115,8 @@ class PullRequest
         DependabotJob::dispatch($data);
     }
 
-    protected function matesForRequest(PullRequestData $data)
+    protected function matesForRequest(PullRequestData $data): Collection
     {
-        return $this->teamParser->forLocale($data->title)->reject(
-            fn (string $username) => $username === $data->author
-        );
+        return $this->teamParser->forLocale($data->title);
     }
 }
