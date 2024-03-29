@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Data\PullRequestData;
+use App\Rules\NotInCollectionRule;
 use Spatie\LaravelData\Data;
 
 /** @method PullRequestData dto() */
@@ -29,6 +30,12 @@ class AssignRequest extends FormRequest
             'pull_request.state'  => ['required', 'string', 'in:open'],
             'pull_request.locked' => ['required', 'bool', 'declined'],
             'pull_request.draft'  => ['required', 'bool', 'declined'],
+            'pull_request.labels' => ['required', 'array', new NotInCollectionRule('name', $this->labels())],
         ];
+    }
+
+    protected function labels(): array
+    {
+        return config('github.pull_request.auto_merge');
     }
 }
