@@ -38,7 +38,7 @@ class ChangelogCast implements Cast
             ->stripTags($this->allowedTags)
             ->replace($this->tagsFrom, $this->tagsTo)
             ->replaceMatches('/-\s+\[(.+)]/', $this->listItem)
-            ->replace('\n\n\n', '\n\n')
+            ->replace("\n\n\n", "\n\n")
             ->toString();
     }
 
