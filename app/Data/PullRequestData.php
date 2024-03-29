@@ -28,4 +28,7 @@ class PullRequestData extends Data
 
     #[MapInputName('pull_request.body')]
     public Optional|string|null $body;
+
+    #[MapInputName('pull_request.mergeable')]
+    public bool|Optional|null $isMergeable;
 }

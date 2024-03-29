@@ -66,6 +66,16 @@ class PullRequest
         );
     }
 
+    public function close(PullRequestData $data): void
+    {
+        $this->github->pullRequest()->update(
+            $data->organization,
+            $data->repository,
+            $data->id,
+            ['state' => 'closed']
+        );
+    }
+
     public function assign(PullRequestData $data): void
     {
         if (! blank($users = $this->matesForRequest($data))) {

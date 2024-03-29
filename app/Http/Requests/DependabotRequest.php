@@ -30,7 +30,7 @@ class DependabotRequest extends FormRequest
             'pull_request.draft'  => ['required', 'bool', 'declined'],
 
             'sender'    => ['required', 'array'],
-            'sender.id' => ['required', 'numeric', Rule::in(config('github.dependabot.id'))],
+            'sender.id' => ['required', 'numeric', Rule::in(config('github.identifiers.dependabot'))],
         ];
     }
 }

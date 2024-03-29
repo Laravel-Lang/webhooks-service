@@ -30,8 +30,9 @@ return [
         ],
     ],
 
-    'dependabot' => [
-        'id' => 49699333,
+    'identifiers' => [
+        'dependabot' => 49699333,
+        'actions'    => 41898282,
     ],
 
     'webhooks' => [
