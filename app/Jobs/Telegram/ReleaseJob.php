@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs\Telegram;
 
+use App\Enums\JobEnum;
 use App\Helpers\Tags;
 use App\Jobs\Job;
 use DefStudio\Telegraph\Models\TelegraphChat;
@@ -20,7 +21,9 @@ class ReleaseJob extends Job
         public string $version,
         public string $changelog,
         public string $url
-    ) {}
+    ) {
+        $this->queue = JobEnum::Release->value;
+    }
 
     public function handle(): void
     {
