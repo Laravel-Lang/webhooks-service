@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs\Boosty;
 
+use App\Enums\JobEnum;
 use App\Helpers\Tags;
 use App\Integrations\Boosty;
 use App\Jobs\Job;
@@ -15,7 +16,9 @@ class PublishJob extends Job
         public string $version,
         public string $changelog,
         public string $url
-    ) {}
+    ) {
+        $this->queue = JobEnum::Release->value;
+    }
 
     public function handle(Boosty $boosty): void
     {
