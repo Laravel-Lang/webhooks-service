@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use App\Data\PullRequestData;
 use App\Rules\InCollectionRule;
+use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
 
 /** @method PullRequestData dto() */
@@ -18,15 +19,19 @@ class AutoMergeRequest extends FormRequest
         return [
             'action' => ['required', 'string', 'in:opened,labeled'],
 
+            'sender'    => ['required', 'array'],
+            'sender.id' => ['required', 'numeric', Rule::in(config('github.identifiers.actions'))],
+
             'repository'             => ['required', 'array'],
             'repository.name'        => ['required', 'string'],
             'repository.owner.login' => ['required', 'string'],
 
-            'pull_request'          => ['required', 'array'],
-            'pull_request.number'   => ['required', 'numeric'],
-            'pull_request.head.sha' => ['required', 'string'],
-            'pull_request.title'    => ['required', 'string'],
-            'pull_request.body'     => ['required', 'string'],
+            'pull_request'           => ['required', 'array'],
+            'pull_request.number'    => ['required', 'numeric'],
+            'pull_request.head.sha'  => ['required', 'string'],
+            'pull_request.title'     => ['required', 'string'],
+            'pull_request.body'      => ['required', 'string'],
+            'pull_request.mergeable' => ['required', 'bool'],
 
             'pull_request.state'  => ['required', 'string', 'in:open'],
             'pull_request.locked' => ['required', 'bool', 'declined'],
