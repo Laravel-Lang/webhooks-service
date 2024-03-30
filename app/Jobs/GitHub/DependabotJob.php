@@ -7,6 +7,7 @@ namespace App\Jobs\GitHub;
 use App\Data\PullRequestData;
 use App\Jobs\Job;
 use App\Services\PullRequest;
+use Github\Exception\ApiLimitExceedException;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class DependabotJob extends Job implements ShouldBeUnique
@@ -21,7 +22,10 @@ class DependabotJob extends Job implements ShouldBeUnique
 
     public function handle(PullRequest $pullRequest): void
     {
-        $pullRequest->comment($this->data, $this->message);
+        $this->releaseAfter(
+            fn () => $pullRequest->comment($this->data, $this->message),
+            ApiLimitExceedException::class
+        );
     }
 
     public function uniqueId(): string
