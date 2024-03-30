@@ -6,6 +6,7 @@ namespace App\Jobs\GitHub;
 
 use App\Jobs\Job;
 use App\Services\Repository;
+use Github\Exception\ApiLimitExceedException;
 
 class SyncLabelsJob extends Job
 {
@@ -16,8 +17,10 @@ class SyncLabelsJob extends Job
 
     public function handle(Repository $repository): void
     {
-        $this->create($repository);
-        $this->remove($repository);
+        $this->releaseAfter(function () use ($repository) {
+            $this->create($repository);
+            $this->remove($repository);
+        }, ApiLimitExceedException::class);
     }
 
     protected function create(Repository $repository): void
