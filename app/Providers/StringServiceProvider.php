@@ -35,7 +35,7 @@ class StringServiceProvider extends ServiceProvider
 
                 $pluralized = $count === 1 ? 'change' : 'changes';
 
-                $items->push("\n(and $count more $pluralized)");
+                $items->push("\n_(and $count more $pluralized)_");
             })->implode(PHP_EOL);
 
             return new Stringable($result);

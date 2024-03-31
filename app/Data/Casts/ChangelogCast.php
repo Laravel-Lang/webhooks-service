@@ -26,7 +26,7 @@ class ChangelogCast implements Cast
 
     protected array $tagsTo = ['b', '- ', ''];
 
-    protected array $allowedTags = ['h2', 'li', 'i'];
+    protected array $allowedTags = ['h2', 'li', 'i', 'em'];
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): string
     {
