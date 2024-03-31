@@ -14,7 +14,9 @@ class StringServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Stringable::macro('limitRows', function (int $limit) {
-            $rows = $this->explode("\n");
+            $rows = $this->explode("\n")->unique(
+                fn (string $value) => Str::startsWith($value, '-') ? $value : Str::random()
+            );
 
             $need = $limit;
 
