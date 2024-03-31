@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Webhooks;
 
+use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use Illuminate\Support\Arr;
 
@@ -11,16 +12,26 @@ class Telegram extends WebhookHandler
 {
     public function connect(): void
     {
-        if (! $this->isForum()) {
-            return;
+        $this->welcome();
+
+        if ($this->isForum()) {
+            $this->storeThreadId();
         }
 
+        $this->sendReply();
+    }
+
+    protected function welcome(): void
+    {
+        $this->chat->action(ChatActions::TYPING)->send()->throw();
+    }
+
+    protected function storeThreadId(): void
+    {
         if ($id = $this->threadId()) {
             $this->chat->thread_id = $id;
             $this->chat->save();
         }
-
-        $this->removeMessage();
     }
 
     protected function threadId(): ?int
@@ -30,13 +41,13 @@ class Telegram extends WebhookHandler
 
     protected function isForum(): bool
     {
-        return (bool) Arr::get($this->request->get('message', []), 'chat.is_forum', false);
+        return (bool)Arr::get($this->request->get('message', []), 'chat.is_forum', false);
     }
 
-    protected function removeMessage(): void
+    protected function sendReply(): void
     {
-        $this->chat->deleteMessage(
+        $this->chat->html(__('Done'))->reply(
             $this->messageId
-        );
+        )->send()->throw();
     }
 }
