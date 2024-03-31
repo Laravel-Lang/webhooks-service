@@ -9,7 +9,6 @@ use App\Helpers\Tags;
 use App\Jobs\Job;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Support\Str;
-use Throwable;
 
 class ReleaseJob extends Job
 {
@@ -31,7 +30,7 @@ class ReleaseJob extends Job
         $this->resetErrors();
     }
 
-    public function failed(?Throwable $exception): void
+    public function failed(): void
     {
         $this->chat()->errors <= $this->maxErrors()
             ? $this->chat()->increment('errors')
