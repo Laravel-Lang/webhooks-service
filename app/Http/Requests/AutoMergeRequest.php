@@ -31,7 +31,7 @@ class AutoMergeRequest extends FormRequest
             'pull_request.head.sha'  => ['required', 'string'],
             'pull_request.title'     => ['required', 'string'],
             'pull_request.body'      => ['required', 'string'],
-            'pull_request.mergeable' => ['required', 'bool'],
+            'pull_request.mergeable' => ['required', 'nullable', 'bool'],
 
             'pull_request.state'  => ['required', 'string', 'in:open'],
             'pull_request.locked' => ['required', 'bool', 'declined'],
