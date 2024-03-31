@@ -28,10 +28,10 @@ abstract class Job implements ShouldQueue
         catch (Throwable $e) {
             if (Instance::of($e, $exceptionClass)) {
                 $this->release($minutes * 60);
-                
+
                 return;
             }
-            
+
             throw $e;
         }
     }
