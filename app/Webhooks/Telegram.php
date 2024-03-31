@@ -41,7 +41,7 @@ class Telegram extends WebhookHandler
 
     protected function isForum(): bool
     {
-        return (bool)Arr::get($this->request->get('message', []), 'chat.is_forum', false);
+        return (bool) Arr::get($this->request->get('message', []), 'chat.is_forum', false);
     }
 
     protected function sendReply(): void
