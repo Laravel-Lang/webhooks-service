@@ -31,9 +31,17 @@ that the bot can bind to the topic.
 > 
 > When publishing messages in topics that are closed from users, you must grant the bot rights to manage topics.
 
+## Communication
+
+We also have official [chats](https://t.me/addlist/l0XGtvEIBiljMTMy) in Telegram.
+
 ## Contributing
 
 Please see [CONTRIBUTING](https://laravel-lang.com/contributions.html) for details.
+
+## Support Us
+
+❤️ Laravel Lang? Please consider supporting our collective on [Boosty](https://boosty.to/laravel-lang).
 
 ## License
 
