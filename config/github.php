@@ -123,7 +123,7 @@ return [
         Locale::Georgian->value           => [],
         Locale::German->value             => ['sotten', 'WhereIsLucas'],
         Locale::GermanSwitzerland->value  => ['sotten'],
-        Locale::Greek->value              => [],
+        Locale::Greek->value              => ['michaelkonstantinou'],
         Locale::Gujarati->value           => [],
         Locale::Hausa->value              => [],
         Locale::Hawaiian->value           => [],
