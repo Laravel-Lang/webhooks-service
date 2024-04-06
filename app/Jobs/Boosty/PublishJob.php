@@ -26,12 +26,12 @@ class PublishJob extends Job
             sprintf('%s %s released', $this->repository, $this->version),
             $this->changelog,
             $this->url,
-            $this->repositoryTags($this->repository)
+            $this->repositoryTags()
         );
     }
 
-    protected function repositoryTags(string $value): array
+    protected function repositoryTags(): array
     {
-        return Tags::parse($value);
+        return Tags::parse($this->repository, $this->changelog);
     }
 }
