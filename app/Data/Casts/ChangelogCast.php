@@ -17,6 +17,10 @@ class ChangelogCast implements Cast
 
     protected string $fullLink = '/\*{0,2}Full\sChangelog\*{0,2}:\s.+\/compare\/[\d\.]+/';
 
+    protected string $contributors = '/\*\s+(@[\w\d\-_]+)\smade\stheir\sfirst\scontribution.*/';
+
+    protected string $contributor = '- $1';
+
     protected array $options = [
         'html_input'         => 'strip',
         'allow_unsafe_links' => false,
@@ -32,6 +36,7 @@ class ChangelogCast implements Cast
     {
         return Str::of($this->removeEmojis($value))
             ->replaceMatches([$this->from, $this->fullLink], '')
+            ->replaceMatches($this->contributors, $this->contributor)
             ->trim()
             ->limitRows($this->limit())
             ->markdown($this->options)
