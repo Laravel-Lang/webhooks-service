@@ -59,7 +59,7 @@ class ReleaseJob extends Job
 
     protected function repositoryTags(): string
     {
-        return collect(Tags::parse($this->repository))->map(
+        return collect(Tags::parse($this->repository, $this->changelog))->map(
             fn (string $tag) => Str::of($tag)
                 ->replace('-', '_')
                 ->prepend('#')
