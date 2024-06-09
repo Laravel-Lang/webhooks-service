@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-
-
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DragonCode\LaravelDeployOperations\Operation;
 
