@@ -12,7 +12,7 @@
         "php": "^8.2",
         "ext-pdo": "*",
         "defstudio/telegraph": "^1.42",
-        "dragon-code/laravel-actions": "^4.5",
+        "dragon-code/laravel-deploy-operations": "^6.1",
         "dragon-code/laravel-json-response": "^3.0",
         "graham-campbell/github": "^12.6",
         "laravel-lang/locale-list": "^1.3",

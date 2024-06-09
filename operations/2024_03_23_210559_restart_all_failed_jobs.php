@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-use DragonCode\LaravelActions\Action;
 
-return new class extends Action {
+
+use DragonCode\LaravelDeployOperations\Operation;
+
+return new class extends Operation {
     protected bool $before = false;
 
     public function __invoke(): void
