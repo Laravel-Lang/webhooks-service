@@ -38,21 +38,21 @@ task('deploy', [
     'artisan:optimize:clear',
     'artisan:optimize',
     'artisan:migrate',
-    'artisan:actions:before',
+    'artisan:operations:before',
     'deploy:publish',
     'php-fpm:reload',
     'artisan:queue:restart',
-    'artisan:actions',
+    'artisan:operations',
 ]);
 
-task('artisan:actions', function () {
+task('artisan:operations', function () {
     cd('{{release_path}}');
-    run('{{bin/php}} artisan actions');
+    run('{{bin/php}} artisan operations');
 });
 
-task('artisan:actions:before', function () {
+task('artisan:operations:before', function () {
     cd('{{release_path}}');
-    run('{{bin/php}} artisan actions --before');
+    run('{{bin/php}} artisan operations --before');
 });
 
 before('deploy', 'telegram:notify');

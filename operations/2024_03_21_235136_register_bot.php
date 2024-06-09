@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-use DefStudio\Telegraph\Models\TelegraphBot;
-use DragonCode\LaravelActions\Action;
 
-return new class extends Action {
+
+use DefStudio\Telegraph\Models\TelegraphBot;
+use DragonCode\LaravelDeployOperations\Operation;
+
+return new class extends Operation {
     public function __invoke(): void
     {
         $this->create($this->token(), $this->name());
