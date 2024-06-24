@@ -12,10 +12,6 @@ return [
             'webhooks-service',
         ],
 
-        'changelog' => [
-            'limit' => 20,
-        ],
-
         'max_errors' => 10,
     ],
 
