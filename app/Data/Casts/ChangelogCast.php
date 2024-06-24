@@ -26,11 +26,13 @@ class ChangelogCast implements Cast
         'allow_unsafe_links' => false,
     ];
 
-    protected array $tagsFrom = ['h2', '<li>', '</li>'];
+    protected array $tagsFrom = ['h2', '<li>', '</li>', '<ul>', '</ul>'];
 
-    protected array $tagsTo = ['b', '- ', ''];
+    protected array $tagsTo = ['b', '- ', '', '<blockquote expandable>', '</blockquote>'];
 
-    protected array $allowedTags = ['h2', 'li', 'i', 'em'];
+    protected array $allowedTags = ['h2', 'li', 'i', 'em', 'ul'];
+
+    protected string $resolveSpaces = '/<li>\n?\s*(.+)\n?\s*<\/li>/';
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): string
     {
@@ -38,8 +40,8 @@ class ChangelogCast implements Cast
             ->replaceMatches([$this->from, $this->fullLink], '')
             ->replaceMatches($this->contributors, $this->contributor)
             ->trim()
-            ->limitRows($this->limit())
             ->markdown($this->options)
+            ->replaceMatches($this->resolveSpaces, '<li>$1</li>')
             ->stripTags($this->allowedTags)
             ->replace($this->tagsFrom, $this->tagsTo)
             ->replaceMatches('/-\s+\[(.+)]/', $this->listItem)
@@ -66,10 +68,5 @@ class ChangelogCast implements Cast
     protected function emoji(): EmojiDetector
     {
         return new EmojiDetector();
-    }
-
-    protected function limit(): int
-    {
-        return config('services.telegram.changelog.limit');
     }
 }
