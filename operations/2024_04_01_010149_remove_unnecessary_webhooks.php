@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-
-
 use DragonCode\LaravelDeployOperations\Operation;
 use GrahamCampbell\GitHub\GitHubManager;
 

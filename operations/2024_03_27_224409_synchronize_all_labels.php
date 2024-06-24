@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-
-
 use App\Jobs\GitHub\ConnectOrganizationJob;
 use DragonCode\LaravelDeployOperations\Operation;
 
