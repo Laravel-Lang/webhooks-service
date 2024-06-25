@@ -8,6 +8,7 @@ use App\Enums\JobEnum;
 use App\Helpers\Tags;
 use App\Integrations\Boosty;
 use App\Jobs\Job;
+use Illuminate\Support\Str;
 
 class PublishJob extends Job
 {
@@ -24,7 +25,7 @@ class PublishJob extends Job
     {
         $boosty->publish(
             sprintf('%s %s released', $this->repository, $this->version),
-            $this->changelog,
+            $this->resolveChangelog($this->changelog),
             $this->url,
             $this->repositoryTags()
         );
@@ -33,5 +34,10 @@ class PublishJob extends Job
     protected function repositoryTags(): array
     {
         return Tags::parse($this->repository, $this->changelog);
+    }
+
+    protected function resolveChangelog(string $content): string
+    {
+        return Str::replace(['<blockquote expandable>', '</blockquote>'], '', $content);
     }
 }
