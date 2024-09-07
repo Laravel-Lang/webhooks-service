@@ -12,7 +12,8 @@ class Repository
 {
     public function __construct(
         protected GitHubManager $github
-    ) {}
+    ) {
+    }
 
     public function connect(RepositoryData $data): void
     {
