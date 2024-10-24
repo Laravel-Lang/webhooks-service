@@ -12,7 +12,7 @@ require 'recipe/laravel.php';
 
 set('application', 'Laravel-Lang: Webhooks');
 set('repository', 'git@github.com:Laravel-Lang/webhooks-service.git');
-set('php_fpm_version', '8.2');
+set('php_fpm_version', '8.3');
 
 set('telegram_token', $_SERVER['TELEGRAM_DRAGON_BOT_TOKEN']);
 set('telegram_chat_id', $_SERVER['TELEGRAM_DRAGON_BOT_CHAT_ID']);
