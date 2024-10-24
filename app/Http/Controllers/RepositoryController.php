@@ -11,7 +11,8 @@ class RepositoryController extends Controller
 {
     public function __construct(
         protected readonly Repository $repository
-    ) {}
+    ) {
+    }
 
     public function create(RepositoryRequest $request)
     {

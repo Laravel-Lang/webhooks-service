@@ -13,7 +13,8 @@ class PullRequestController extends Controller
 {
     public function __construct(
         protected readonly PullRequest $pullRequest
-    ) {}
+    ) {
+    }
 
     public function assign(AssignRequest $request)
     {

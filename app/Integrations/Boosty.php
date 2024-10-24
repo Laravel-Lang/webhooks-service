@@ -14,7 +14,8 @@ readonly class Boosty
     public function __construct(
         protected string $token,
         protected string $blog,
-    ) {}
+    ) {
+    }
 
     public function publish(string $title, string $body, string $url, array $tags): void
     {
