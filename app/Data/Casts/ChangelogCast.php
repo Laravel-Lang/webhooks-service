@@ -45,7 +45,7 @@ class ChangelogCast implements Cast
         return Str::of($this->removeEmojis($value))
             ->replaceMatches([$this->from, $this->fullLink], '')
             ->replaceMatches($this->contributors, $this->contributor)
-            ->when($this->short, fn (Stringable $str) => $str->limit(3000, preserveWords: true))
+            ->when($this->short, fn (Stringable $str) => $str->limit(2000, preserveWords: true))
             ->trim()
             ->markdown($this->options)
             ->replaceMatches($this->resolveSpaces, '<li>$1</li>')
