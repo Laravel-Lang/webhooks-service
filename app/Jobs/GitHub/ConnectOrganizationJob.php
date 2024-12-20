@@ -12,7 +12,8 @@ class ConnectOrganizationJob extends Job implements ShouldBeUnique
 {
     public function __construct(
         public string $organization
-    ) {}
+    ) {
+    }
 
     public function handle(Organization $organization): void
     {
