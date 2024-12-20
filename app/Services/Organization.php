@@ -12,8 +12,7 @@ class Organization
     public function __construct(
         protected GitHubManager $github,
         protected ResultPager $paginator
-    ) {
-    }
+    ) {}
 
     public function repositories(string $organization): array
     {
