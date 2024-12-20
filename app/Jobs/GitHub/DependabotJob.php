@@ -18,7 +18,8 @@ class DependabotJob extends Job implements ShouldBeUnique
 
     public function __construct(
         public PullRequestData $data
-    ) {}
+    ) {
+    }
 
     public function handle(PullRequest $pullRequest): void
     {

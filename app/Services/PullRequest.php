@@ -19,7 +19,8 @@ class PullRequest
         protected GitHubManager $github,
         protected TeamParser $teamParser,
         protected User $user,
-    ) {}
+    ) {
+    }
 
     public function autoMerge(PullRequestData $data): void
     {
@@ -45,7 +46,7 @@ class PullRequest
         );
 
         foreach ($reviews as $review) {
-            $body   = Arr::get($review, 'body');
+            $body = Arr::get($review, 'body');
             $userId = Arr::get($review, 'user.id');
 
             if ($body === $this->autoApproveMessage && $this->user->isMe($userId)) {
