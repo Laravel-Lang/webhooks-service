@@ -12,7 +12,11 @@ class StringServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        Stringable::macro('short', function (int $limit): Stringable {
+        Stringable::macro('short', function (int $limit, string $end = '...and more...'): Stringable {
+            if ($this->length() <= $limit) {
+                return $this;
+            }
+
             $value = $this->value();
 
             while ($limit < Str::length($value)) {
@@ -23,7 +27,7 @@ class StringServiceProvider extends ServiceProvider
                 $value = $lines->implode("\n");
             }
 
-            return new Stringable($value);
+            return new Stringable($value . "\n" . $end);
         });
     }
 }
