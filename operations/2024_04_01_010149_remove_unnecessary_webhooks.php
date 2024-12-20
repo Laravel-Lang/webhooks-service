@@ -5,8 +5,7 @@ declare(strict_types=1);
 use DragonCode\LaravelDeployOperations\Operation;
 use GrahamCampbell\GitHub\GitHubManager;
 
-return new class extends Operation
-{
+return new class extends Operation {
     protected bool $before = false;
 
     protected string $organization = 'Laravel-Lang';
