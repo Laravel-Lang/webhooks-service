@@ -29,4 +29,8 @@ class ReleaseData extends Data
     #[MapInputName('release.body')]
     #[WithCast(ChangelogCast::class)]
     public string $changelog;
+
+    #[MapInputName('release.body_short')]
+    #[WithCast(ChangelogCast::class, true)]
+    public string $shortChangelog;
 }
