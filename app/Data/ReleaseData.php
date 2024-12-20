@@ -30,7 +30,7 @@ class ReleaseData extends Data
     #[WithCast(ChangelogCast::class)]
     public string $changelog;
 
-    #[MapInputName('release.body_short')]
+    #[MapInputName('release.body')]
     #[WithCast(ChangelogCast::class, true)]
     public string $shortChangelog;
 }

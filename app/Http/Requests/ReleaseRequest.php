@@ -20,9 +20,8 @@ class ReleaseRequest extends FormRequest
 
             'release' => ['required', 'array'],
 
-            'release.name'       => ['required', 'string'],
-            'release.body'       => ['required', 'string'],
-            'release.body_short' => ['required', 'string'],
+            'release.name' => ['required', 'string'],
+            'release.body' => ['required', 'string'],
 
             'release.draft' => ['required', 'bool', 'declined'],
 
@@ -39,12 +38,5 @@ class ReleaseRequest extends FormRequest
             'repository.disabled'    => ['required', 'bool', 'declined'],
             'repository.is_template' => ['required', 'bool', 'declined'],
         ];
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge([
-            'release.body_short' => $this->input('release.body', ''),
-        ]);
     }
 }
