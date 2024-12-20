@@ -20,8 +20,9 @@ class ReleaseRequest extends FormRequest
 
             'release' => ['required', 'array'],
 
-            'release.name' => ['required', 'string'],
-            'release.body' => ['required', 'string'],
+            'release.name'       => ['required', 'string'],
+            'release.body'       => ['required', 'string'],
+            'release.body_short' => ['required', 'string'],
 
             'release.draft' => ['required', 'bool', 'declined'],
 
@@ -42,8 +43,8 @@ class ReleaseRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        $this->mergeIfMissing([
-            'release.body_short' => $this->get('release')['body'] ?? '',
+        $this->merge([
+            'release.body_short' => $this->input('release.body', ''),
         ]);
     }
 }
