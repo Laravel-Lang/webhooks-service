@@ -3,6 +3,7 @@
 namespace App\Data\Casts;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
@@ -34,11 +35,16 @@ class ChangelogCast implements Cast
 
     protected string $resolveSpaces = '/<li>\n?\s*(.+)\n?\s*<\/li>/';
 
+    public function __construct(
+        protected bool $short = false
+    ) {}
+
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): string
     {
         return Str::of($this->removeEmojis($value))
             ->replaceMatches([$this->from, $this->fullLink], '')
             ->replaceMatches($this->contributors, $this->contributor)
+            ->when($this->short, fn (Stringable $str) => $str->limit(3500, preserveWords: true))
             ->trim()
             ->markdown($this->options)
             ->replaceMatches($this->resolveSpaces, '<li>$1</li>')

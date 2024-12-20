@@ -39,4 +39,11 @@ class ReleaseRequest extends FormRequest
             'repository.is_template' => ['required', 'bool', 'declined'],
         ];
     }
+
+    protected function prepareForValidation(): void
+    {
+        $this->mergeIfMissing([
+            'release.body_short' => $this->get('release')['body'] ?? '',
+        ]);
+    }
 }

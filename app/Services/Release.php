@@ -25,7 +25,7 @@ class Release
                 $chat->id,
                 $data->repository,
                 $data->version,
-                $data->changelog,
+                $data->shortChangelog,
                 $data->url
             )
         );
