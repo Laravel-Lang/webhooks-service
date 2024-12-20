@@ -13,8 +13,7 @@ class SyncLabelsJob extends Job
     public function __construct(
         public string $organization,
         public string $repository
-    ) {
-    }
+    ) {}
 
     public function handle(Repository $repository): void
     {
