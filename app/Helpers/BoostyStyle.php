@@ -21,8 +21,8 @@ class BoostyStyle
 
         while (Str::contains($content, '<')) {
             $position = Str::position($content, '<');
-            $tag = Str::betweenFirst($content, '<', '>');
-            $value = Str::betweenFirst($content, "<$tag>", "</$tag>");
+            $tag      = Str::betweenFirst($content, '<', '>');
+            $value    = Str::betweenFirst($content, "<$tag>", "</$tag>");
 
             $length = Str::length($value);
 
