@@ -24,8 +24,7 @@ abstract class Job implements ShouldQueue
     {
         try {
             $callback();
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             if (Instance::of($e, $exceptionClass)) {
                 $this->release($minutes * 60);
 
