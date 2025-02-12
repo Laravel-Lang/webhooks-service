@@ -9,24 +9,23 @@
         "framework"
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "ext-pdo": "*",
-        "defstudio/telegraph": "^1.56.0",
+        "defstudio/telegraph": "^1.56.3",
         "dragon-code/laravel-deploy-operations": "^6.3.2",
         "dragon-code/laravel-json-response": "^3.0.1",
         "graham-campbell/github": "^12.6",
         "laravel-lang/locale-list": "^1.4",
-        "laravel/framework": "^11.36.1",
-        "laravel/tinker": "^2.10",
-        "sentry/sentry-laravel": "^4.10.2",
-        "spatie/laravel-data": "^4.11.1",
+        "laravel/framework": "^11.42.0",
+        "laravel/tinker": "^2.10.1",
+        "sentry/sentry-laravel": "^4.12.0",
+        "spatie/laravel-data": "^4.13.0",
         "steppinghat/emoji-detector": "^1.7.0"
     },
     "require-dev": {
         "laravel-lang/common": "^6.4",
-        "laravel/telescope": "^5.2.6",
-        "nunomaduro/collision": "^8.5.0",
-        "spatie/laravel-ignition": "^2.9"
+        "laravel/telescope": "^5.5.0",
+        "nunomaduro/collision": "^8.6.1"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,

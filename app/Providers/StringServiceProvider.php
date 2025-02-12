@@ -13,7 +13,7 @@ class StringServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Stringable::macro('short', function (int $limit, string $end = '...and more...'): Stringable {
-            if ($this->length() <= $limit) {
+            if ($limit >= $this->length()) {
                 return $this;
             }
 
