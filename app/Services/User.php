@@ -11,7 +11,8 @@ class User
 {
     public function __construct(
         protected GitHubManager $github,
-    ) {}
+    ) {
+    }
 
     public function isMe(?int $userId): bool
     {
