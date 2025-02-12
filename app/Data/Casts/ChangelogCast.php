@@ -36,8 +36,7 @@ class ChangelogCast implements Cast
 
     public function __construct(
         protected bool $short = false
-    ) {
-    }
+    ) {}
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): string
     {

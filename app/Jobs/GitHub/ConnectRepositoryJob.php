@@ -13,8 +13,7 @@ class ConnectRepositoryJob extends Job implements ShouldBeUnique
         public string $organization,
         public string $repository,
         public bool $withWebhooks = true
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {

@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 
 class GitHubMiddleware
 {
-    protected const ALGO = 'sha256';
+    protected const ALGO        = 'sha256';
     protected const AUTH_HEADER = 'X-Hub-Signature-256';
     protected const PING_HEADER = 'X-GitHub-Event';
 
@@ -72,7 +72,7 @@ class GitHubMiddleware
         }
 
         $organization = Arr::get($request->get('repository'), 'owner.login');
-        $repository = Arr::get($request->get('repository'), 'name');
+        $repository   = Arr::get($request->get('repository'), 'name');
 
         ConnectRepositoryJob::dispatch($organization, $repository);
     }

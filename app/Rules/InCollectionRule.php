@@ -13,8 +13,7 @@ readonly class InCollectionRule implements ValidationRule
     public function __construct(
         protected string $key,
         protected array|string $values
-    ) {
-    }
+    ) {}
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
