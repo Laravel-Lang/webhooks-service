@@ -23,6 +23,7 @@
         "steppinghat/emoji-detector": "^1.7.0"
     },
     "require-dev": {
+        "dragon-code/codestyler": "^6.3",
         "laravel-lang/common": "^6.4",
         "laravel/telescope": "^5.5.0",
         "nunomaduro/collision": "^8.6.1"
@@ -38,7 +39,6 @@
     },
     "config": {
         "allow-plugins": {
-            "dragon-code/codestyler": true,
             "ergebnis/composer-normalize": true,
             "pestphp/pest-plugin": true,
             "php-http/discovery": true,
@@ -51,12 +51,16 @@
     "scripts": {
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "php artisan vendor:publish --tag=telescope-assets --ansi --force",
-            "@php artisan lang:update"
+            "@php artisan vendor:publish --tag=telescope-assets --ansi --force",
+            "@php artisan lang:update",
+            "@php vendor/bin/codestyle pint 8.4",
+            "@php vendor/bin/codestyle editorconfig",
+            "composer normalize"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
-        ]
+        ],
+        "style": "vendor/bin/pint --parallel"
     }
 }

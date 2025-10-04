@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Data\Casts;
 
 use Illuminate\Support\Str;
@@ -36,8 +38,7 @@ class ChangelogCast implements Cast
 
     public function __construct(
         protected bool $short = false
-    ) {
-    }
+    ) {}
 
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): string
     {
@@ -73,6 +74,6 @@ class ChangelogCast implements Cast
 
     protected function emoji(): EmojiDetector
     {
-        return new EmojiDetector();
+        return new EmojiDetector;
     }
 }
