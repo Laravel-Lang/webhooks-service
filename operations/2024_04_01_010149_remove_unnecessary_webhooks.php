@@ -6,7 +6,10 @@ use DragonCode\LaravelDeployOperations\Operation;
 use GrahamCampbell\GitHub\GitHubManager;
 
 return new class extends Operation {
-    protected bool $before = false;
+    public function needBefore(): bool
+    {
+        return false;
+    }
 
     protected string $organization = 'Laravel-Lang';
 

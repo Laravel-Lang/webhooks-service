@@ -6,9 +6,15 @@ use App\Console\Commands\RegisterWebhooks;
 use DragonCode\LaravelDeployOperations\Operation;
 
 return new class extends Operation {
-    protected bool $once = false;
+    public function shouldOnce(): bool
+    {
+        return false;
+    }
 
-    protected bool $before = false;
+    public function needBefore(): bool
+    {
+        return false;
+    }
 
     public function __invoke(): void
     {

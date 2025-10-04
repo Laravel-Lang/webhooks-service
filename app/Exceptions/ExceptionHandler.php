@@ -7,7 +7,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Sentry\Laravel\Integration;
 
-class Handler
+class ExceptionHandler
 {
     public function __invoke(Exceptions $exceptions): void
     {

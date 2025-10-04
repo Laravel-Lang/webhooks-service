@@ -6,7 +6,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Foundation\Configuration\Middleware;
 
-class Handler
+class MiddlewareHandler
 {
     public function __invoke(Middleware $middleware): void
     {

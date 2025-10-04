@@ -6,7 +6,10 @@ use App\Jobs\GitHub\ConnectOrganizationJob;
 use DragonCode\LaravelDeployOperations\Operation;
 
 return new class extends Operation {
-    protected bool $before = false;
+    public function needBefore(): bool
+    {
+        return false;
+    }
 
     protected string $organization = 'Laravel-Lang';
 

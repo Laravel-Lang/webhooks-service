@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Exceptions\Handler as ExceptionHandler;
-use App\Http\Middleware\Handler as MiddlewareHandler;
+use App\Exceptions\ExceptionHandler;
+use App\Http\Middleware\MiddlewareHandler;
 use Illuminate\Foundation\Application;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -11,6 +11,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(new ExceptionHandler)
     ->withCommands()
     ->withRouting(
-        api: __DIR__ . '/../routes/api.php',
+        api     : __DIR__ . '/../routes/api.php',
         commands: __DIR__ . '/../routes/console.php',
     )->create();
