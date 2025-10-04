@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Webhooks\Telegram;
 use DefStudio\Telegraph\Telegraph;
 

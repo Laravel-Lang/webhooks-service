@@ -11,8 +11,7 @@ class ReleaseController extends Controller
 {
     public function __construct(
         protected readonly Release $release
-    ) {
-    }
+    ) {}
 
     public function publish(ReleaseRequest $request)
     {
