@@ -16,6 +16,11 @@ return new class extends Operation {
         return false;
     }
 
+    public function shouldRun(): bool
+    {
+        return app()->isProduction();
+    }
+
     public function __invoke(): void
     {
         $this->artisan(RegisterWebhooks::class);
