@@ -19,8 +19,10 @@ class GitHubMiddleware
 
     public function handle(Request $request, Closure $next)
     {
-        $this->throw(fn () => $this->signature($request));
-        $this->throw(fn () => $this->hashed($request));
+        if ($this->isProduction()) {
+            $this->throw(fn () => $this->signature($request));
+            $this->throw(fn () => $this->hashed($request));
+        }
 
         if ($this->hasCreatedHook($request)) {
             $this->connect($request);
@@ -75,5 +77,10 @@ class GitHubMiddleware
         $repository   = Arr::get($request->get('repository'), 'name');
 
         ConnectRepositoryJob::dispatch($organization, $repository);
+    }
+
+    protected function isProduction(): bool
+    {
+        return app()->isProduction();
     }
 }
