@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::dropIfExists('telegraph_bots');
         Schema::dropIfExists('telegraph_chats');
+        Schema::dropIfExists('telegraph_bots');
     }
 };
