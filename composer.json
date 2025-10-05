@@ -11,7 +11,6 @@
     "require": {
         "php": "^8.4",
         "ext-pdo": "*",
-        "defstudio/telegraph": "^1.56.3",
         "dragon-code/laravel-deploy-operations": "^7.0",
         "dragon-code/laravel-json-response": "^3.0.1",
         "graham-campbell/github": "^13.0",
