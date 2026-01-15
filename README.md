@@ -1,5 +1,10 @@
 # Webhooks Service
 
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://banners.beyondco.de/Webhooks%20Service.png?theme=dark&pattern=topography&style=style_2&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg&packageManager=composer+require&packageName=laravel%2Flaravel&description=by+Laravel+Lang&md=1&showWatermark=1">
+    <img src="https://banners.beyondco.de/Webhooks%20Service.png?theme=light&pattern=topography&style=style_2&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg&packageManager=composer+require&packageName=laravel%2Flaravel&description=by+Laravel+Lang&md=1&showWatermark=1" alt="Webhooks Service">
+</picture>
+
 ![](https://banners.beyondco.de/Webhook%20Service.png?theme=light&packageManager=&packageName=&pattern=topography&style=style_2&description=by+Laravel+Lang&md=1&showWatermark=1&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg)
 
 > Service for quickly publishing information about new releases in Telegram chats.
